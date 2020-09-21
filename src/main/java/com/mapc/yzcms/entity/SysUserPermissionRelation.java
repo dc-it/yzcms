@@ -1,0 +1,43 @@
+package com.mapc.yzcms.entity;
+
+import lombok.*;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
+import javax.persistence.Table;
+
+/**
+ * 用户权限关联实体类
+ *
+ * @author duchao
+ */
+@Entity
+@Table(name = "sys_user_permission_relation")
+@Data
+@Builder(toBuilder = true)
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(callSuper = false)
+@DynamicUpdate
+@DynamicInsert
+@EntityListeners(AuditingEntityListener.class)
+public class SysUserPermissionRelation extends BaseEntity {
+
+	/**
+	 * 用户id
+	 */
+	private long userId;
+
+	/**
+	 * 权限id
+	 */
+	private long permissionId;
+
+	/**
+	 * 是否拥有此权限，补充角色权限用的不足
+	 */
+	private boolean own;
+}

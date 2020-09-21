@@ -1,0 +1,40 @@
+spring:
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:mysql://182.92.202.68:8003/yzcms-admin?useUnicode=true&useSSL=false&autoReconnect=true&allowPublicKeyRetrieval=true
+    username: ENC(+OwQlLxtEWTw/xMkyuZk9pUjcZyvhEynk2gb6QqShG3HA1DOnfPCaxlGrMoMNsgH)
+    password: ENC(NHzbt6ap/gB3AD/iQfrN7unabpKw2PLH+0pBrKqXVIPlNiyadtU3VD1r4Zs7uP7o)
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    database: mysql
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+    open-in-view: false
+
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  mvc:
+    throw-exception-if-no-handler-found: true
+    static-path-pattern: /**
+  resources:
+    add-mappings: false
+
+jasypt:
+  encryptor:
+    password: 0BD0E610F6FB2E2703B9FBCD4CCDDEB3
+    property:
+      prefix: ENC(
+      suffix: )
+
+# 自定义jwt key
+jwt:
+  tokenHeader: Authorization #JWT存储的请求头
+  secret: 123456123456123456123456123456123456123456 #JWT加解密使用的密钥
+  expiration: 120 #JWT的超期限时间(60*60*24=604800)
+  tokenHead: Bearer  #JWT负载中拿到开头

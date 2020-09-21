@@ -1,0 +1,74 @@
+package com.mapc.yzcms.entity;
+
+import lombok.*;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
+import javax.persistence.Table;
+import java.time.LocalDateTime;
+
+/**
+ * 用户实体
+ *
+ * @author duchao
+ */
+@Entity
+@Table(name = "sys_user")
+@Data
+@Builder(toBuilder = true)
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(callSuper = false)
+@DynamicUpdate
+@DynamicInsert
+@EntityListeners(AuditingEntityListener.class)
+public class SysUser extends BaseEntity {
+
+	/**
+	 * 用户名
+	 */
+	private String username;
+
+	/**
+	 * 密码
+	 */
+	private String password;
+
+	/**
+	 * 头像
+	 */
+	private String icon;
+
+	/**
+	 * 手机号
+	 */
+	private String phone;
+
+	/**
+	 * 邮箱
+	 */
+	private String email;
+
+	/**
+	 * 昵称
+	 */
+	private String nickName;
+
+	/**
+	 * 备注信息
+	 */
+	private String remark;
+
+	/**
+	 * 最后登陆时间
+	 */
+	private LocalDateTime loginTime;
+
+	/**
+	 * 状态：启用、禁用
+	 */
+	private boolean status;
+}
