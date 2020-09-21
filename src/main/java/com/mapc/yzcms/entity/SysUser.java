@@ -28,7 +28,7 @@ import java.time.LocalDateTime;
 public class SysUser extends BaseEntity {
 
 	/**
-	 * 用户名
+	 * 用户名：字母数字必须有
 	 */
 	private String username;
 

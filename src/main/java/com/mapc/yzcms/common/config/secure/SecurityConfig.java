@@ -106,7 +106,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				List<SysPermission> permissionList = sysPermissionService.getSysPermissionList(sysUser.getId());
 				return new SysUserDetails(sysUser, permissionList);
 			}
-			throw new UsernameNotFoundException("用户名或密码错误");
+			throw new UsernameNotFoundException("账户不存在");
 		};
 	}
 

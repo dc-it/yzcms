@@ -12,8 +12,8 @@ public interface ISysUserService extends IBaseService<SysUser, Long> {
 	/**
 	 * 查找用户
 	 *
-	 * @param username 账号名
+	 * @param account 账号名
 	 * @return
 	 */
-	SysUser getSysUser(String username);
+	SysUser getSysUser(String account);
 }

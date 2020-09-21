@@ -29,13 +29,13 @@ public class SysUserService extends BaseService<SysUser, Long> implements ISysUs
 	/**
 	 * 查找用户
 	 *
-	 * @param username 账号名
+	 * @param account 账号名
 	 * @return
 	 */
 	@Override
-	public SysUser getSysUser(String username) {
-		Assert.notNull(username, "账户不能为空");
-		List<SysUser> sysUserList = sysUserRepository.findByUsername(username);
+	public SysUser getSysUser(String account) {
+		Assert.notNull(account, "账户不能为空");
+		List<SysUser> sysUserList = sysUserRepository.findByUsernameOrPhoneOrEmail(account,account,account);
 		Assert.notEmpty(sysUserList, "账户不存在");
 		return sysUserList.get(0);
 	}

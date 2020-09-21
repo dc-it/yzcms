@@ -17,8 +17,10 @@ public interface SysUserRepository extends JpaRepository<SysUser, Long> {
 	 * 查找用户
 	 *
 	 * @param username 账号名
+	 * @param phone    手机号
+	 * @param email    邮箱
 	 * @return
 	 */
-	List<SysUser> findByUsername(String username);
+	List<SysUser> findByUsernameOrPhoneOrEmail(String username, String phone, String email);
 
 }

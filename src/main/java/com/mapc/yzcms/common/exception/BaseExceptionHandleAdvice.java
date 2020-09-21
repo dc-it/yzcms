@@ -7,6 +7,7 @@ import org.springframework.beans.TypeMismatchException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.http.converter.HttpMessageNotWritableException;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.validation.BindException;
 import org.springframework.web.HttpMediaTypeNotAcceptableException;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
@@ -114,6 +115,20 @@ public class BaseExceptionHandleAdvice {
 	 */
 	@ExceptionHandler(NoHandlerFoundException.class)
 	public final Result<Object> handleNoHandlerFoundException(NoHandlerFoundException ex, HttpServletRequest request) {
+		String path = request.getRequestURI();
+		log.error("{}请求异常：404-接口不存在", path);
+		return Result.failed(404, "请求接口" + path + "不存在");
+	}
+
+	/**
+	 * 404处理
+	 *
+	 * @param ex      异常对象
+	 * @param request 请求对象
+	 * @return
+	 */
+	@ExceptionHandler(AuthenticationException.class)
+	public final Result<Object> handleAuthenticationException(NoHandlerFoundException ex, HttpServletRequest request) {
 		String path = request.getRequestURI();
 		log.error("{}请求异常：404-接口不存在", path);
 		return Result.failed(404, "请求接口" + path + "不存在");
