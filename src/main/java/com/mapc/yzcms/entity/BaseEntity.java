@@ -31,10 +31,24 @@ public abstract class BaseEntity implements Serializable {
 	@Column(updatable = false, nullable = false)
 	protected LocalDateTime createTime;
 
+	/**
+	 * 创建人
+	 */
+	@Getter
+	@Setter
+	protected long createBy;
+
 	@LastModifiedDate
 	@Getter
 	@Column(nullable = false)
 	protected LocalDateTime updateTime;
+
+	/**
+	 * 更新人
+	 */
+	@Getter
+	@Setter
+	protected long updateBy;
 
 	@PrePersist
 	private void init() {

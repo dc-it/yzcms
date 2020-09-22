@@ -10,74 +10,34 @@ import javax.persistence.EntityListeners;
 import javax.persistence.Table;
 
 /**
- * 文章
+ * 文章标签关联实体类
  *
  * @author duchao
  */
 @Entity
-@Table(name = "cms_article")
+@Table(name = "cms_article_tag_relation")
 @Data
 @Builder(toBuilder = true)
 @NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 @DynamicUpdate
 @DynamicInsert
 @EntityListeners(AuditingEntityListener.class)
-public class CmsArticle extends BaseEntity {
+public class CmsArticleTagRelation extends BaseEntity{
 
 	/**
-	 * 标题
+	 * 文章id
 	 */
-	private String title;
+	private long articleId;
 
 	/**
-	 * 关键字
+	 * 标签id
 	 */
-	private String keywords;
-
-	/**
-	 * 描述
-	 */
-	private String description;
-
-	/**
-	 * 内容
-	 */
-	private String content;
-
-	/**
-	 * 缩略图
-	 */
-	private long imageId;
-
-	/**
-	 * 作者
-	 */
-	private String author;
-
-	/**
-	 * 类型：1->推荐，2->置顶
-	 */
-	private int type;
-
-	/**
-	 * 是否审核
-	 */
-	private boolean check;
-
-	/**
-	 * 阅读数
-	 */
-	private int pageview;
-
-	/**
-	 * 所属菜单
-	 */
-	private long menuId;
+	private long tagId;
 
 	/**
 	 * 所属网站
 	 */
 	private long websiteId;
-
 }

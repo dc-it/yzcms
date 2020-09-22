@@ -10,20 +10,21 @@ import javax.persistence.EntityListeners;
 import javax.persistence.Table;
 
 /**
- * 文章
+ * 单页实体类
  *
  * @author duchao
  */
 @Entity
-@Table(name = "cms_article")
+@Table(name = "cms_page")
 @Data
 @Builder(toBuilder = true)
 @NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 @DynamicUpdate
 @DynamicInsert
 @EntityListeners(AuditingEntityListener.class)
-public class CmsArticle extends BaseEntity {
+public class CmsPage extends BaseEntity {
 
 	/**
 	 * 标题
@@ -46,38 +47,7 @@ public class CmsArticle extends BaseEntity {
 	private String content;
 
 	/**
-	 * 缩略图
-	 */
-	private long imageId;
-
-	/**
-	 * 作者
-	 */
-	private String author;
-
-	/**
-	 * 类型：1->推荐，2->置顶
-	 */
-	private int type;
-
-	/**
-	 * 是否审核
-	 */
-	private boolean check;
-
-	/**
-	 * 阅读数
-	 */
-	private int pageview;
-
-	/**
-	 * 所属菜单
-	 */
-	private long menuId;
-
-	/**
 	 * 所属网站
 	 */
 	private long websiteId;
-
 }

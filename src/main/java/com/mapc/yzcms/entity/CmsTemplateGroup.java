@@ -10,74 +10,37 @@ import javax.persistence.EntityListeners;
 import javax.persistence.Table;
 
 /**
- * 文章
+ * 文章模板实体类（一套模板，一个实例）
+ * 存于 classpath:templates目录下，一个文件夹一套模板
  *
  * @author duchao
  */
 @Entity
-@Table(name = "cms_article")
+@Table(name = "cms_template_group")
 @Data
 @Builder(toBuilder = true)
 @NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 @DynamicUpdate
 @DynamicInsert
 @EntityListeners(AuditingEntityListener.class)
-public class CmsArticle extends BaseEntity {
+public class CmsTemplateGroup extends BaseEntity{
 
 	/**
-	 * 标题
+	 * 模板名称
 	 */
-	private String title;
+	private String name;
 
 	/**
-	 * 关键字
+	 * 模板所存路径：classpath:templates/xx
 	 */
-	private String keywords;
+	private String directory;
 
 	/**
 	 * 描述
 	 */
 	private String description;
 
-	/**
-	 * 内容
-	 */
-	private String content;
-
-	/**
-	 * 缩略图
-	 */
-	private long imageId;
-
-	/**
-	 * 作者
-	 */
-	private String author;
-
-	/**
-	 * 类型：1->推荐，2->置顶
-	 */
-	private int type;
-
-	/**
-	 * 是否审核
-	 */
-	private boolean check;
-
-	/**
-	 * 阅读数
-	 */
-	private int pageview;
-
-	/**
-	 * 所属菜单
-	 */
-	private long menuId;
-
-	/**
-	 * 所属网站
-	 */
-	private long websiteId;
 
 }

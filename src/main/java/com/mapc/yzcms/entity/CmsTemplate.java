@@ -1,7 +1,6 @@
 package com.mapc.yzcms.entity;
 
 import lombok.*;
-import lombok.experimental.Accessors;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -11,48 +10,34 @@ import javax.persistence.EntityListeners;
 import javax.persistence.Table;
 
 /**
- * 菜单
+ * 模板
  *
  * @author duchao
  */
 @Entity
-@Table(name = "cms_menu")
+@Table(name = "cms_template")
 @Data
 @Builder(toBuilder = true)
 @NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 @DynamicUpdate
 @DynamicInsert
 @EntityListeners(AuditingEntityListener.class)
-public class CmsMenu extends BaseEntity {
+public class CmsTemplate extends BaseEntity{
 
 	/**
-	 * 所属网站
+	 * 模板组id
 	 */
-	private long websiteId;
+	private long templateGroupId;
 
 	/**
-	 * 所属父id
-	 */
-	private long pid;
-
-	/**
-	 * 名称
+	 * 模板文件名
 	 */
 	private String name;
 
 	/**
-	 * 地址
+	 * 类型：1->首页，2->频道页，3->列表页，4->详情页
 	 */
-	private String url;
-
-	/**
-	 * 描述
-	 */
-	private String description;
-
-	/**
-	 * 排序
-	 */
-	private int sort;
+	private int type;
 }
