@@ -5,9 +5,7 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 /**
@@ -27,6 +25,11 @@ import java.time.LocalDateTime;
 @EntityListeners(AuditingEntityListener.class)
 public class SysUser extends BaseEntity {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id", unique = true, nullable = false)
+	private int id;
+
 	/**
 	 * 用户名：字母数字必须有
 	 */
@@ -40,7 +43,7 @@ public class SysUser extends BaseEntity {
 	/**
 	 * 头像
 	 */
-	private String icon;
+	private long imageId;
 
 	/**
 	 * 手机号

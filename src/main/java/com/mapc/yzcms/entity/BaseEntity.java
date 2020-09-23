@@ -6,10 +6,7 @@ import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
-import javax.persistence.PrePersist;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -18,13 +15,6 @@ import java.time.LocalDateTime;
  */
 @MappedSuperclass
 public abstract class BaseEntity implements Serializable {
-
-	@Getter
-	@Setter
-	@Id
-	//@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id", unique = true, nullable = false)
-	protected long id;
 
 	@CreatedDate
 	@Getter
@@ -49,11 +39,6 @@ public abstract class BaseEntity implements Serializable {
 	@Getter
 	@Setter
 	protected long updateBy;
-
-	@PrePersist
-	private void init() {
-		this.id = SnowflakeIdUtil.generateId();
-	}
 
 //    @PreUpdate
 //    private void setUpdateTime() {

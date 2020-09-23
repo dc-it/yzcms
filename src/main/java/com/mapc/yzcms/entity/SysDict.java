@@ -5,17 +5,15 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
- * 文章标签实体类
+ * 系统设置
  *
  * @author duchao
  */
 @Entity
-@Table(name = "cms_tag")
+@Table(name = "sys_dict")
 @Data
 @Builder(toBuilder = true)
 @NoArgsConstructor
@@ -24,25 +22,25 @@ import javax.persistence.Table;
 @DynamicUpdate
 @DynamicInsert
 @EntityListeners(AuditingEntityListener.class)
-public class CmsTag extends BaseEntity {
+public class SysDict extends BaseEntity{
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id", unique = true, nullable = false)
+	private int id;
 
 	/**
-	 * 名称
+	 * 文本
 	 */
-	private String name;
+	private String label;
 
 	/**
-	 * 排序
+	 * 值
 	 */
-	private int sort;
+	private String value;
 
 	/**
-	 * 这个标签下文章数量
+	 * 父id，跟字典为0
 	 */
-	private int articleNum;
+	private int pid;
 
-	/**
-	 * 所属网站
-	 */
-	private long websiteId;
 }

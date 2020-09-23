@@ -5,9 +5,7 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * 文章模板实体类（一套模板，一个实例）
@@ -27,20 +25,25 @@ import javax.persistence.Table;
 @EntityListeners(AuditingEntityListener.class)
 public class CmsTemplateGroup extends BaseEntity{
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id", unique = true, nullable = false)
+	private int id;
+
 	/**
 	 * 模板名称
 	 */
 	private String name;
 
 	/**
-	 * 模板所存路径：classpath:templates/xx
-	 */
-	private String directory;
-
-	/**
 	 * 描述
 	 */
 	private String description;
+
+	/**
+	 * 模板组的访问地址
+	 */
+	private String path;
 
 
 }

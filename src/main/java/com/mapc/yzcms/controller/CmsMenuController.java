@@ -2,7 +2,7 @@ package com.mapc.yzcms.controller;
 
 import com.mapc.yzcms.common.api.Result;
 import com.mapc.yzcms.entity.CmsMenu;
-import com.mapc.yzcms.service.ICmsArticleService;
+import com.mapc.yzcms.service.IAutArticleService;
 import com.mapc.yzcms.service.ICmsMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -17,10 +17,10 @@ import org.springframework.web.bind.annotation.*;
 public class CmsMenuController {
 
 	private final ICmsMenuService menuService;
-	private final ICmsArticleService articleService;
+	private final IAutArticleService articleService;
 
 	@Autowired
-	public CmsMenuController(ICmsMenuService menuService, ICmsArticleService articleService) {
+	public CmsMenuController(ICmsMenuService menuService, IAutArticleService articleService) {
 		this.menuService = menuService;
 		this.articleService = articleService;
 	}

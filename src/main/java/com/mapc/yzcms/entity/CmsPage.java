@@ -5,9 +5,7 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * 单页实体类
@@ -25,6 +23,11 @@ import javax.persistence.Table;
 @DynamicInsert
 @EntityListeners(AuditingEntityListener.class)
 public class CmsPage extends BaseEntity {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id", unique = true, nullable = false)
+	private int id;
 
 	/**
 	 * 标题
@@ -45,6 +48,11 @@ public class CmsPage extends BaseEntity {
 	 * 内容
 	 */
 	private String content;
+
+	/**
+	 * 访问路径
+	 */
+	private String path;
 
 	/**
 	 * 所属网站

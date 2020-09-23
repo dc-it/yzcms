@@ -5,17 +5,15 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
- * 文件实体类
+ * 静化态网站生成
  *
  * @author duchao
  */
 @Entity
-@Table(name = "cms_file")
+@Table(name = "cms_website_generate")
 @Data
 @Builder(toBuilder = true)
 @NoArgsConstructor
@@ -24,25 +22,35 @@ import javax.persistence.Table;
 @DynamicUpdate
 @DynamicInsert
 @EntityListeners(AuditingEntityListener.class)
-public class CmsFile extends BaseEntity {
+public class CmsWebsiteGenerate extends BaseEntity{
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id", unique = true, nullable = false)
+	private int id;
 
 	/**
-	 * 名称
+	 * 生成网站类型：1->完全静态，2->伪静态
 	 */
-	private String name;
+	private int type;
 
 	/**
-	 * 地址
+	 * 访问网址（demo.xxx.com）
 	 */
-	private String uri;
+	private String url;
 
 	/**
-	 * 类型：1->图片
+	 * 静态网站服务器保存路径
 	 */
-	private String type;
+	private String path;
 
 	/**
 	 * 所属网站
 	 */
 	private long websiteId;
+
+	/**
+	 * 使用状态
+	 */
+	private boolean use;
 }

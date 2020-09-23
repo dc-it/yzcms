@@ -5,9 +5,7 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * 用户实体
@@ -25,6 +23,11 @@ import javax.persistence.Table;
 @DynamicInsert
 @EntityListeners(AuditingEntityListener.class)
 public class SysRole extends BaseEntity{
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id", unique = true, nullable = false)
+	private int id;
 
 	/**
 	 * 角色名称

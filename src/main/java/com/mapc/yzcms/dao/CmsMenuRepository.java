@@ -9,5 +9,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  *
  * @author duchao
  */
-public interface CmsMenuRepository extends JpaRepository<CmsMenu, Long> {
+public interface CmsMenuRepository extends JpaRepository<CmsMenu, Integer> {
 }

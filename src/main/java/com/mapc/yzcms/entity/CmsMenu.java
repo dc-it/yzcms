@@ -6,9 +6,7 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * 菜单
@@ -20,11 +18,17 @@ import javax.persistence.Table;
 @Data
 @Builder(toBuilder = true)
 @NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 @DynamicUpdate
 @DynamicInsert
 @EntityListeners(AuditingEntityListener.class)
 public class CmsMenu extends BaseEntity {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id", unique = true, nullable = false)
+	private int id;
 
 	/**
 	 * 所属网站
@@ -42,9 +46,19 @@ public class CmsMenu extends BaseEntity {
 	private String name;
 
 	/**
+	 * 名称（英文）
+	 */
+	private String enname;
+
+	/**
+	 * 关键字
+	 */
+	private String keywords;
+
+	/**
 	 * 地址
 	 */
-	private String url;
+	private String path;
 
 	/**
 	 * 描述

@@ -1,7 +1,7 @@
 package com.mapc.yzcms.service.impl;
 
 import com.mapc.yzcms.dao.CmsMenuRepository;
-import com.mapc.yzcms.entity.CmsArticle;
+import com.mapc.yzcms.entity.AutArticle;
 import com.mapc.yzcms.entity.CmsMenu;
 import com.mapc.yzcms.service.ICmsMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +18,10 @@ import org.springframework.transaction.annotation.Transactional;
 public class CmsMenuService extends BaseService<CmsMenu,Long> implements ICmsMenuService {
 
     private final CmsMenuRepository cmsMenuRepository;
-    private final CmsArticleService cmsArticleService;
+    private final AutArticleService cmsArticleService;
 
     @Autowired
-    public CmsMenuService(CmsMenuRepository cmsMenuRepository, CmsArticleService cmsArticleService) {
+    public CmsMenuService(CmsMenuRepository cmsMenuRepository, AutArticleService cmsArticleService) {
         this.cmsMenuRepository = cmsMenuRepository;
         this.cmsArticleService = cmsArticleService;
     }
@@ -29,6 +29,6 @@ public class CmsMenuService extends BaseService<CmsMenu,Long> implements ICmsMen
     @Override
     public void addMenu(CmsMenu cmsMenu){
         this.add(cmsMenu);
-        cmsArticleService.addArticle(new CmsArticle());
+        cmsArticleService.addArticle(new AutArticle());
     }
 }

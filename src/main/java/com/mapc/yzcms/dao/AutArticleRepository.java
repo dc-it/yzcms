@@ -1,6 +1,6 @@
 package com.mapc.yzcms.dao;
 
-import com.mapc.yzcms.entity.CmsArticle;
+import com.mapc.yzcms.entity.AutArticle;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 
@@ -9,5 +9,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  *
  * @author duchao
  */
-public interface CmsArticleRepository extends JpaRepository<CmsArticle, Long> {
+public interface AutArticleRepository extends JpaRepository<AutArticle, Long> {
 }

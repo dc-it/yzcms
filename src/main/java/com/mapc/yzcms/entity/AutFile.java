@@ -1,5 +1,6 @@
 package com.mapc.yzcms.entity;
 
+import com.mapc.yzcms.common.util.SnowflakeIdUtil;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -8,12 +9,12 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
 
 /**
- * 用户角色关联实体类
+ * 文件实体类
  *
  * @author duchao
  */
 @Entity
-@Table(name = "sys_user_role_relation")
+@Table(name = "aut_file")
 @Data
 @Builder(toBuilder = true)
 @NoArgsConstructor
@@ -22,20 +23,34 @@ import javax.persistence.*;
 @DynamicUpdate
 @DynamicInsert
 @EntityListeners(AuditingEntityListener.class)
-public class SysUserRoleRelation extends BaseEntity {
+public class AutFile extends BaseEntity {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
-	private int id;
+	private long id;
 
 	/**
-	 * 用户id
+	 * 名称
 	 */
-	private long userId;
+	private String name;
 
 	/**
-	 * 角色id
+	 * 文件地址
 	 */
-	private long roleId;
+	private String path;
+
+	/**
+	 * 类型：1->图片
+	 */
+	private String type;
+
+	/**
+	 * 所属网站
+	 */
+	private long websiteId;
+
+	@PrePersist
+	private void init() {
+		this.id = SnowflakeIdUtil.generateId();
+	}
 }

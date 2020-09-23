@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author duchao
  */
-public interface SysUserRepository extends JpaRepository<SysUser, Long> {
+public interface SysUserRepository extends JpaRepository<SysUser, Integer> {
 
 	/**
 	 * 查找用户

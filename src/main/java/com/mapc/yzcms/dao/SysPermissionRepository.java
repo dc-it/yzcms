@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @author duchao
  */
-public interface SysPermissionRepository extends JpaRepository<SysPermission, Long> {
+public interface SysPermissionRepository extends JpaRepository<SysPermission, Integer> {
 
 
 }

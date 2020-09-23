@@ -1,5 +1,6 @@
 package com.mapc.yzcms.entity;
 
+import com.mapc.yzcms.common.util.SnowflakeIdUtil;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -8,12 +9,12 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
 
 /**
- * 用户角色关联实体类
+ * 文章
  *
  * @author duchao
  */
 @Entity
-@Table(name = "sys_user_role_relation")
+@Table(name = "aut_article_content")
 @Data
 @Builder(toBuilder = true)
 @NoArgsConstructor
@@ -22,20 +23,34 @@ import javax.persistence.*;
 @DynamicUpdate
 @DynamicInsert
 @EntityListeners(AuditingEntityListener.class)
-public class SysUserRoleRelation extends BaseEntity {
+public class AutArticleContent extends BaseEntity {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
-	private int id;
+	private long id;
 
 	/**
-	 * 用户id
+	 * 内容
 	 */
-	private long userId;
+	private String content;
 
 	/**
-	 * 角色id
+	 * 所属文章id
 	 */
-	private long roleId;
+	private long articleId;
+
+	/**
+	 * 所属菜单
+	 */
+	private long menuId;
+
+	/**
+	 * 所属网站
+	 */
+	private long websiteId;
+
+	@PrePersist
+	private void init() {
+		this.id = SnowflakeIdUtil.generateId();
+	}
 }

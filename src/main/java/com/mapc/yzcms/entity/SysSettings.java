@@ -8,12 +8,12 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
 
 /**
- * 用户角色关联实体类
+ * 系统设置
  *
  * @author duchao
  */
 @Entity
-@Table(name = "sys_user_role_relation")
+@Table(name = "sys_settings")
 @Data
 @Builder(toBuilder = true)
 @NoArgsConstructor
@@ -22,7 +22,7 @@ import javax.persistence.*;
 @DynamicUpdate
 @DynamicInsert
 @EntityListeners(AuditingEntityListener.class)
-public class SysUserRoleRelation extends BaseEntity {
+public class SysSettings extends BaseEntity{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,12 +30,12 @@ public class SysUserRoleRelation extends BaseEntity {
 	private int id;
 
 	/**
-	 * 用户id
+	 * 系统附件存放地址
 	 */
-	private long userId;
+	private String fileUrl;
 
 	/**
-	 * 角色id
+	 * 系统模板存放地址
 	 */
-	private long roleId;
+	private String templateUrl;
 }
