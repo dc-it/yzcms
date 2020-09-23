@@ -17,5 +17,5 @@ public interface ISysPermissionService extends IBaseService<SysPermission, Long>
 	 * @param sysUserId 用户id
 	 * @return
 	 */
-	List<SysPermission> getSysPermissionList(Long sysUserId);
+	List<SysPermission> getSysPermissionList(Integer sysUserId);
 }

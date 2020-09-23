@@ -32,7 +32,7 @@ public class SysPermissionService extends BaseService<SysPermission, Long> imple
 	 * @return
 	 */
 	@Override
-	public List<SysPermission> getSysPermissionList(Long sysUserId) {
+	public List<SysPermission> getSysPermissionList(Integer sysUserId) {
 		return null;
 	}
 }

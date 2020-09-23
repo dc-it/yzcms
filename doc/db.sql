@@ -11,7 +11,7 @@
  Target Server Version : 80021
  File Encoding         : 65001
 
- Date: 23/09/2020 15:20:17
+ Date: 23/09/2020 16:35:32
 */
 
 SET NAMES utf8mb4;
@@ -90,11 +90,14 @@ CREATE TABLE `aut_author`
     `username`    varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '账户名',
     `password`    varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '密码',
     `nick_name`   varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci  NULL DEFAULT NULL COMMENT '昵称',
+    `image_id`    bigint(0)                                               NULL DEFAULT NULL COMMENT '头像（关联cms_file）',
     `phone`       varchar(13) CHARACTER SET utf8 COLLATE utf8_general_ci  NULL DEFAULT NULL COMMENT '手机号',
     `email`       varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci  NULL DEFAULT NULL COMMENT '邮箱',
-    `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '描述',
+    `remark`      varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '描述',
+    `login_time`  datetime(0)                                             NULL DEFAULT NULL COMMENT '最后登陆时间',
     `create_time` datetime(0)                                             NULL DEFAULT NULL COMMENT '创建时间/入驻时间',
     `update_time` datetime(0)                                             NULL DEFAULT NULL COMMENT '更新时间',
+    `status`      bit(1)                                                  NULL DEFAULT NULL COMMENT '状态：启用、禁用',
     PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 1
@@ -440,7 +443,7 @@ CREATE TABLE `sys_user`
     `id`          int(0)                                                  NOT NULL AUTO_INCREMENT,
     `username`    varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci  NULL DEFAULT NULL,
     `password`    varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci  NULL DEFAULT NULL,
-    `icon`        varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '头像',
+    `imageId`     bigint(0)                                               NULL DEFAULT NULL COMMENT '头像（关联cms_file）',
     `phone`       varchar(13) CHARACTER SET utf8 COLLATE utf8_general_ci  NULL DEFAULT NULL COMMENT '手机号',
     `email`       varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '邮箱',
     `nick_name`   varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '昵称',
