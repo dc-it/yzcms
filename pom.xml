@@ -34,6 +34,10 @@
         <jwt.version>0.9.1</jwt.version>
         <jaxb.version>2.3.0</jaxb.version>
         <jasypt.version>3.0.3</jasypt.version>
+        <knife4j.version>2.0.5</knife4j.version>
+        <swagger.version>2.9.2</swagger.version>
+        <slf4j.version>1.7.21</slf4j.version>
+        <logback.version>1.2.3</logback.version>
     </properties>
 
     <dependencies>
@@ -44,6 +48,18 @@
         <!--    <artifactId>sharding-jdbc-spring-boot-starter</artifactId>-->
         <!--    <version>${shardingsphere.jdbc.version}</version>-->
         <!--</dependency>-->
+
+        <!--接口文档-->
+        <dependency>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>knife4j-spring-boot-starter</artifactId>
+            <version>${knife4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>${swagger.version}</version>
+        </dependency>
 
         <!--配置文件数据加密-->
         <dependency>
@@ -138,6 +154,43 @@
             <version>${beetl.framework.version}</version>
         </dependency>
 
+        <!--日志-->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jcl-over-slf4j</artifactId>
+            <version>${slf4j.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${logback.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>javax.mail</groupId>
+                    <artifactId>mail</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>javax.jms</groupId>
+                    <artifactId>jms</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.sun.jdmk</groupId>
+                    <artifactId>jmxtools</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.sun.jmx</groupId>
+                    <artifactId>jmxri</artifactId>
+                </exclusion>
+            </exclusions>
+            <scope>runtime</scope>
+        </dependency>
+
         <!--<dependency>-->
         <!--    <groupId>org.springframework.boot</groupId>-->
         <!--    <artifactId>spring-boot-starter-amqp</artifactId>-->
@@ -228,6 +281,7 @@
         <!--    <artifactId>spring-security-test</artifactId>-->
         <!--    <scope>test</scope>-->
         <!--</dependency>-->
+
     </dependencies>
 
     <repositories>

@@ -7,7 +7,7 @@ import com.mapc.yzcms.entity.CmsMenu;
  *
  * @author duchao
  */
-public interface ICmsMenuService extends IBaseService<CmsMenu, Long> {
+public interface ICmsMenuService extends IBaseService<CmsMenu, Integer> {
 
     /**
      * 添加菜单

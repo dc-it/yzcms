@@ -1,28 +1,12 @@
 spring:
+  application:
+    name: yzcms
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     url: jdbc:mysql://182.92.202.68:8003/yzcms?useUnicode=true&useSSL=false&autoReconnect=true&allowPublicKeyRetrieval=true&allowMultiQueries=true
     username: ENC(+OwQlLxtEWTw/xMkyuZk9pUjcZyvhEynk2gb6QqShG3HA1DOnfPCaxlGrMoMNsgH)
     password: ENC(NHzbt6ap/gB3AD/iQfrN7unabpKw2PLH+0pBrKqXVIPlNiyadtU3VD1r4Zs7uP7o)
     driver-class-name: com.mysql.cj.jdbc.Driver
-
-#  shardingsphere:
-#    datasource:
-#      names: yzcms
-#      yzcms:
-#        type: com.zaxxer.hikari.HikariDataSource
-#        url: jdbc:mysql://182.92.202.68:8003/yzcms-admin?useUnicode=true&useSSL=false&autoReconnect=true&allowPublicKeyRetrieval=true&allowMultiQueries=true
-#        username: ENC(+OwQlLxtEWTw/xMkyuZk9pUjcZyvhEynk2gb6QqShG3HA1DOnfPCaxlGrMoMNsgH)
-#        password: ENC(NHzbt6ap/gB3AD/iQfrN7unabpKw2PLH+0pBrKqXVIPlNiyadtU3VD1r4Zs7uP7o)
-#        driver-class-name: com.mysql.cj.jdbc.Driver
-#    sharding:
-#      tables:
-#        cms_website:
-#          # 分库策略
-#          database-strategy:
-#            standard:
-#              sharding-column: id
-#              sharding-algorithm-name: database_inline
 
   jpa:
     database: mysql
@@ -49,6 +33,9 @@ jasypt:
     property:
       prefix: ENC(
       suffix: )
+
+logging:
+  config: classpath:logback-spring.xml
 
 # 自定义jwt key
 jwt:

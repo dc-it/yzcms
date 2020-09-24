@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Transactional(rollbackFor = Exception.class)
 @Service
-public class CmsMenuService extends BaseService<CmsMenu,Long> implements ICmsMenuService {
+public class CmsMenuService extends BaseService<CmsMenu,Integer> implements ICmsMenuService {
 
     private final CmsMenuRepository cmsMenuRepository;
     private final AutArticleService cmsArticleService;

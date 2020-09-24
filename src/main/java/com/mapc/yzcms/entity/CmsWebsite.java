@@ -1,5 +1,7 @@
 package com.mapc.yzcms.entity;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -13,6 +15,7 @@ import java.util.List;
  *
  * @author duchao
  */
+@ApiModel("网站元素据")
 @Entity
 @Table(name = "cms_website")
 @Data
@@ -25,6 +28,7 @@ import java.util.List;
 @EntityListeners(AuditingEntityListener.class)
 public class CmsWebsite extends BaseEntity{
 
+	@ApiModelProperty(name = "id")
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
@@ -94,4 +98,24 @@ public class CmsWebsite extends BaseEntity{
 	 * 顺序
 	 */
 	private int sort;
+
+	/**
+	 * 使用数据库名
+	 */
+	private String databaseName;
+
+	/**
+	 * 数据库连接地址
+	 */
+	private String databaseUrl;
+
+	/**
+	 * 数据库账户
+	 */
+	private String databaseUsername;
+
+	/**
+	 * 数据库密码
+	 */
+	private String databasePassword;
 }

@@ -1,6 +1,7 @@
 package com.mapc.yzcms.common.exception;
 
 import com.mapc.yzcms.common.api.Result;
+import com.mapc.yzcms.common.api.ResultCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.ConversionNotSupportedException;
 import org.springframework.beans.TypeMismatchException;
@@ -120,19 +121,18 @@ public class BaseExceptionHandleAdvice {
 		return Result.failed(404, "请求接口" + path + "不存在");
 	}
 
-	/**
-	 * 404处理
-	 *
-	 * @param ex      异常对象
-	 * @param request 请求对象
-	 * @return
-	 */
-	@ExceptionHandler(AuthenticationException.class)
-	public final Result<Object> handleAuthenticationException(NoHandlerFoundException ex, HttpServletRequest request) {
-		String path = request.getRequestURI();
-		log.error("{}请求异常：404-接口不存在", path);
-		return Result.failed(404, "请求接口" + path + "不存在");
-	}
+//	/**
+//	 * 认证失败
+//	 *
+//	 * @param ex      异常对象
+//	 * @param request 请求对象
+//	 * @return
+//	 */
+//	@ExceptionHandler(AuthenticationException.class)
+//	public final Result<Object> handleAuthenticationException(NoHandlerFoundException ex, HttpServletRequest request) {
+//		log.error("认证失败");
+//		return Result.failed("认证失败");
+//	}
 
 	/**
 	 * 系统异常
@@ -143,6 +143,6 @@ public class BaseExceptionHandleAdvice {
 	@ExceptionHandler(Exception.class)
 	public final Result<Object> handleSysException(Exception ex) {
 		log.error("{}系统异常：{}", ex.getMessage());
-		return Result.failed("系统异常");
+		return Result.failed(ResultCode.FAILED);
 	}
 }
