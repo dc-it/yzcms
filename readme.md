@@ -16,3 +16,5 @@
 可存储于项目内classpath:templates下，也可以存储进（远程）单独的minio文件服务器
 
 #### test
+
+this is a test
