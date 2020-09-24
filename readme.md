@@ -13,8 +13,8 @@
 
 #### 存储位置
 
-可存储于项目内classpath:templates下，也可以存储进（远程）单独的minio文件服务器
+- 可存储于项目内classpath:templates下，也可以存储进（远程）单独的minio文件服务器
 
-#### test
+#### 测试
 
-this is a test
+- this is a test
