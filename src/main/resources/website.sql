@@ -1,6 +1,25 @@
+/*
+ Navicat Premium Data Transfer
+
+ Source Server         : 182.92.202.68-me
+ Source Server Type    : MySQL
+ Source Server Version : 80021
+ Source Host           : 182.92.202.68:8003
+ Source Schema         : yzcms
+
+ Target Server Type    : MySQL
+ Target Server Version : 80021
+ File Encoding         : 65001
+
+ Date: 23/09/2020 16:35:32
+*/
+
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
+-- ----------------------------
+-- Table structure for aut_article
+-- ----------------------------
 DROP TABLE IF EXISTS `aut_article`;
 CREATE TABLE `aut_article`
 (
@@ -24,6 +43,9 @@ CREATE TABLE `aut_article`
   COLLATE = utf8_general_ci
   ROW_FORMAT = Dynamic;
 
+-- ----------------------------
+-- Table structure for aut_article_content
+-- ----------------------------
 DROP TABLE IF EXISTS `aut_article_content`;
 CREATE TABLE `aut_article_content`
 (
@@ -40,6 +62,9 @@ CREATE TABLE `aut_article_content`
   COLLATE = utf8_general_ci
   ROW_FORMAT = Dynamic;
 
+-- ----------------------------
+-- Table structure for aut_article_tag_relation
+-- ----------------------------
 DROP TABLE IF EXISTS `aut_article_tag_relation`;
 CREATE TABLE `aut_article_tag_relation`
 (
@@ -55,6 +80,9 @@ CREATE TABLE `aut_article_tag_relation`
   COLLATE = utf8_general_ci
   ROW_FORMAT = Dynamic;
 
+-- ----------------------------
+-- Table structure for aut_author
+-- ----------------------------
 DROP TABLE IF EXISTS `aut_author`;
 CREATE TABLE `aut_author`
 (
@@ -77,6 +105,9 @@ CREATE TABLE `aut_author`
   COLLATE = utf8_general_ci
   ROW_FORMAT = Dynamic;
 
+-- ----------------------------
+-- Table structure for aut_file
+-- ----------------------------
 DROP TABLE IF EXISTS `aut_file`;
 CREATE TABLE `aut_file`
 (
@@ -93,6 +124,9 @@ CREATE TABLE `aut_file`
   COLLATE = utf8_general_ci
   ROW_FORMAT = Dynamic;
 
+-- ----------------------------
+-- Table structure for aut_group
+-- ----------------------------
 DROP TABLE IF EXISTS `aut_group`;
 CREATE TABLE `aut_group`
 (
@@ -111,6 +145,9 @@ CREATE TABLE `aut_group`
   COLLATE = utf8_general_ci
   ROW_FORMAT = Dynamic;
 
+-- ----------------------------
+-- Table structure for aut_group_article_relation
+-- ----------------------------
 DROP TABLE IF EXISTS `aut_group_article_relation`;
 CREATE TABLE `aut_group_article_relation`
 (
@@ -127,6 +164,9 @@ CREATE TABLE `aut_group_article_relation`
   COLLATE = utf8_general_ci
   ROW_FORMAT = Dynamic;
 
+-- ----------------------------
+-- Table structure for aut_tag
+-- ----------------------------
 DROP TABLE IF EXISTS `aut_tag`;
 CREATE TABLE `aut_tag`
 (
