@@ -45,8 +45,10 @@ public class DataSourceProperties {
 	 *
 	 * @return
 	 */
-	public String getConUrl() {
-		return this.url.substring(0, this.url.lastIndexOf("/")) + this.url.substring(this.url.indexOf("?"));
+	public String getIpPort() {
+		return this.url.substring(this.url.indexOf("//")+2,this.url.lastIndexOf("/"));
 	}
+
+
 
 }

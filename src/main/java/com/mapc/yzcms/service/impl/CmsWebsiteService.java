@@ -1,5 +1,6 @@
 package com.mapc.yzcms.service.impl;
 
+import com.mapc.yzcms.common.config.datasource.DataSourceProperties;
 import com.mapc.yzcms.common.util.NewWebsiteDbUtil;
 import com.mapc.yzcms.dao.CmsWebsiteRepository;
 import com.mapc.yzcms.entity.CmsWebsite;
@@ -20,10 +21,12 @@ import org.springframework.transaction.annotation.Transactional;
 public class CmsWebsiteService extends BaseService<CmsWebsite, Integer> implements ICmsWebsiteService {
 
 	private final CmsWebsiteRepository cmsWebsiteRepository;
+	private final DataSourceProperties dataSourceProperties;
 
 	@Autowired
-	public CmsWebsiteService(CmsWebsiteRepository cmsWebsiteRepository) {
+	public CmsWebsiteService(CmsWebsiteRepository cmsWebsiteRepository,DataSourceProperties dataSourceProperties) {
 		this.cmsWebsiteRepository = cmsWebsiteRepository;
+		this.dataSourceProperties = dataSourceProperties;
 	}
 
 	/**
@@ -33,6 +36,12 @@ public class CmsWebsiteService extends BaseService<CmsWebsite, Integer> implemen
 	 */
 	@Override
 	public void addWebsite(CmsWebsite cmsWebsite) {
+
+		if(cmsWebsite.isDatabaseLocal()){
+			cmsWebsite.setDatabaseUrl(dataSourceProperties.getIpPort());
+			cmsWebsite.setDatabaseUsername(dataSourceProperties.getUsername());
+			cmsWebsite.setDatabasePassword(dataSourceProperties.getPassword());
+		}
 
 		//保存站点元素据
 		this.add(cmsWebsite);

@@ -118,4 +118,9 @@ public class CmsWebsite extends BaseEntity{
 	 * 数据库密码
 	 */
 	private String databasePassword;
+
+	/**
+	 * 数据库是否在配置文件中配置的服务器
+	 */
+	private boolean databaseLocal;
 }

@@ -6,6 +6,7 @@ import com.mapc.yzcms.service.ICmsWebsiteService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -27,7 +28,7 @@ public class CmsWebsiteController {
 
 	@ApiOperation("创建站点")
 	@PostMapping
-	public Result<Object> addCmsWebsite(@RequestBody CmsWebsite cmsWebsite) {
+	public Result<Object> addCmsWebsite(@Validated @RequestBody CmsWebsite cmsWebsite) {
 		cmsWebsiteService.addWebsite(cmsWebsite);
 		return Result.success();
 	}
