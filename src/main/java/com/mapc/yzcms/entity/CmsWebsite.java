@@ -15,7 +15,7 @@ import java.util.List;
  *
  * @author duchao
  */
-@ApiModel("网站元素据")
+@ApiModel(value = "网站元素据")
 @Entity
 @Table(name = "cms_website")
 @Data
@@ -28,99 +28,63 @@ import java.util.List;
 @EntityListeners(AuditingEntityListener.class)
 public class CmsWebsite extends BaseEntity{
 
-	@ApiModelProperty(name = "id")
+	@ApiModelProperty(name = "id",value = "主键")
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
 	private int id;
 
-	/**
-	 * 名称
-	 */
+	@ApiModelProperty(name = "name",value = "名称")
 	private String name;
 
-	/**
-	 * 关键字
-	 */
+	@ApiModelProperty(name = "keywords",value = "关键字")
 	private String keywords;
 
-	/**
-	 * 描述
-	 */
+	@ApiModelProperty(name = "description",value = "描述")
 	private String description;
 
-	/**
-	 * 访问网址
-	 */
+	@ApiModelProperty(name = "description",value = "访问网址")
 	private String url;
 
-	/**
-	 * 静态网站服务器保存路径
-	 */
+	@ApiModelProperty(name = "path",value = "静态网站服务器保存路径")
 	private String path;
 
-	/**
-	 * 使用的模板
-	 */
+	@ApiModelProperty(name = "templateGroupId",value = "使用的模板")
 	private long templateGroupId;
 
-	/**
-	 * icp备案
-	 */
+	@ApiModelProperty(name = "icp",value = "icp备案")
 	private String icp;
 
-	/**
-	 * 拥有者/站长
-	 */
+	@ApiModelProperty(name = "ower",value = "拥有者/站长")
 	private String ower;
 
-	/**
-	 * 拥有者联系微信（多个逗号相隔）
-	 */
+	@ApiModelProperty(name = "owerWechat",value = "拥有者联系微信（多个逗号相隔）")
 	private String owerWechat;
 
-	/**
-	 * 拥有者联系qq（多个逗号相隔）
-	 */
+	@ApiModelProperty(name = "owerQq",value = "拥有者联系qq（多个逗号相隔）")
 	private String owerQq;
 
-	/**
-	 * 拥有者联系邮箱（多个逗号相隔）
-	 */
+	@ApiModelProperty(name = "owerEmail",value = "拥有者联系邮箱（多个逗号相隔）")
 	private String owerEmail;
 
-	/**
-	 * 拥有者主页（多个逗号相隔）
-	 */
+	@ApiModelProperty(name = "owerHomepage",value = "拥有者主页（多个逗号相隔）")
 	private String owerHomepage;
 
-	/**
-	 * 顺序
-	 */
+	@ApiModelProperty(name = "sort",value = "顺序")
 	private int sort;
 
-	/**
-	 * 使用数据库名
-	 */
+	@ApiModelProperty(name = "databaseName",value = "使用数据库名")
 	private String databaseName;
 
-	/**
-	 * 数据库连接地址
-	 */
+	@ApiModelProperty(name = "databaseUrl",value = "数据库连接地址")
 	private String databaseUrl;
 
-	/**
-	 * 数据库账户
-	 */
+	@ApiModelProperty(name = "databaseUsername",value = "数据库账户")
 	private String databaseUsername;
 
-	/**
-	 * 数据库密码
-	 */
+	@ApiModelProperty(name = "databasePassword",value = "数据库密码")
 	private String databasePassword;
 
-	/**
-	 * 数据库是否在配置文件中配置的服务器
-	 */
+	@ApiModelProperty(name = "databaseLocal",value = "数据库是否在配置文件中配置的服务器")
 	private boolean databaseLocal;
 }
