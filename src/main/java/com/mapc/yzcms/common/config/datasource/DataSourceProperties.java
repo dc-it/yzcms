@@ -3,9 +3,7 @@ package com.mapc.yzcms.common.config.datasource;
 import com.zaxxer.hikari.HikariDataSource;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.env.Environment;
 
 /**
  * 数据源属性
@@ -15,9 +13,7 @@ import org.springframework.core.env.Environment;
 @Data
 @Configuration
 @ConfigurationProperties(prefix = "spring.datasource")
-public class DataSourceProperties implements EnvironmentAware {
-
-	private Environment environment;
+public class DataSourceProperties {
 
 	/**
 	 * 数据源类型
@@ -53,8 +49,4 @@ public class DataSourceProperties implements EnvironmentAware {
 		return this.url.substring(0, this.url.lastIndexOf("/")) + this.url.substring(this.url.indexOf("?"));
 	}
 
-	@Override
-	public void setEnvironment(Environment environment) {
-		this.environment=environment;
-	}
 }
