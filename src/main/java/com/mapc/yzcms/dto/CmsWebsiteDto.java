@@ -21,7 +21,7 @@ import java.io.Serializable;
 @Data
 @Builder(toBuilder = true)
 @EqualsAndHashCode(callSuper = false)
-public class CmsWebsiteEditDto implements Serializable {
+public class CmsWebsiteDto implements Serializable {
 
 	@ApiModelProperty(name = "id", value = "主键")
 	private Integer id;
@@ -38,11 +38,9 @@ public class CmsWebsiteEditDto implements Serializable {
 	@ApiModelProperty(name = "description", value = "描述")
 	private String description;
 
-	@NotNull(message = "logo不能为空")
 	@ApiModelProperty(name = "logo", value = "logo")
-	private Integer logoImageId;
+	private Integer cmsLogoId;
 
-	@NotBlank(message = "slogan不能为空")
 	@ApiModelProperty(name = "slogan", value = "slogan")
 	private String slogan;
 

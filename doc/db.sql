@@ -321,7 +321,7 @@ CREATE TABLE `cms_website`
     `name`                  varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci  NULL DEFAULT NULL COMMENT '网站名称',
     `keywords`              varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '关键字',
     `description`           varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '描述',
-    `logo_image_id`         int(0)                                                  NULL DEFAULT NULL COMMENT '网站logo图片(关联cms_file)',
+    `cms_logo_id`           int(0)                                                  NULL DEFAULT NULL COMMENT '网站logo图片(关联cms_file)',
     `slogan`                varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '网站标语',
     `url`                   varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '网址',
     `cms_template_group_id` int(0)                                                  NULL DEFAULT NULL COMMENT '模板组id',

@@ -1,10 +1,11 @@
 package com.mapc.yzcms.service.impl;
 
 import com.mapc.yzcms.common.config.datasource.DataSourceProperties;
+import com.mapc.yzcms.common.exception.BaseException;
 import com.mapc.yzcms.common.util.AssertUtil;
 import com.mapc.yzcms.common.util.NewWebsiteDbUtil;
 import com.mapc.yzcms.dao.CmsWebsiteRepository;
-import com.mapc.yzcms.dto.CmsWebsiteEditDto;
+import com.mapc.yzcms.dto.CmsWebsiteDto;
 import com.mapc.yzcms.entity.CmsWebsite;
 import com.mapc.yzcms.service.ICmsWebsiteService;
 import lombok.extern.slf4j.Slf4j;
@@ -12,6 +13,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 /**
  * 站点服务
@@ -35,17 +38,17 @@ public class CmsWebsiteService extends BaseService<CmsWebsite, Integer> implemen
 	/**
 	 * 添加新站点
 	 *
-	 * @param cmsWebsiteEditDto 站点
+	 * @param cmsWebsiteDto 站点
 	 */
 	@Override
-	public void addWebsite(CmsWebsiteEditDto cmsWebsiteEditDto) {
+	public void addWebsite(CmsWebsiteDto cmsWebsiteDto) {
 
-		AssertUtil.isFalse(dataSourceProperties.getPrimaryDatabaseName().equals(cmsWebsiteEditDto.getDatabaseName()),"数据库名不能是{}",dataSourceProperties.getPrimaryDatabaseName());
+		AssertUtil.isFalse(dataSourceProperties.getPrimaryDatabaseName().equals(cmsWebsiteDto.getDatabaseName()),"数据库名不能是{}",dataSourceProperties.getPrimaryDatabaseName());
 
 		CmsWebsite cmsWebsite = new CmsWebsite();
-		BeanUtils.copyProperties(cmsWebsiteEditDto,cmsWebsite);
+		BeanUtils.copyProperties(cmsWebsiteDto,cmsWebsite);
 
-		if (cmsWebsite.isDatabaseLocal()) {
+		if (cmsWebsite.getDatabaseLocal()) {
 			cmsWebsite.setDatabaseUrl(dataSourceProperties.getPrimaryDatabaseIpPort());
 			cmsWebsite.setDatabaseUsername(dataSourceProperties.getUsername());
 			cmsWebsite.setDatabasePassword(dataSourceProperties.getPassword());
@@ -69,7 +72,7 @@ public class CmsWebsiteService extends BaseService<CmsWebsite, Integer> implemen
 		CmsWebsite cmsWebsite = this.get(cmsWebsiteId);
 
 		//删除站点库
-		if (cmsWebsite.isDatabaseLocal()) {
+		if (cmsWebsite.getDatabaseLocal()) {
 			cmsWebsite.setDatabaseUrl(dataSourceProperties.getPrimaryDatabaseIpPort());
 			cmsWebsite.setDatabaseUsername(dataSourceProperties.getUsername());
 			cmsWebsite.setDatabasePassword(dataSourceProperties.getPassword());
@@ -83,13 +86,30 @@ public class CmsWebsiteService extends BaseService<CmsWebsite, Integer> implemen
 	/**
 	 * 更新站点
 	 *
-	 * @param cmsWebsiteEditDto 站点
+	 * @param cmsWebsiteDto 站点
 	 */
 	@Override
-	public void updateWebsite(CmsWebsiteEditDto cmsWebsiteEditDto) {
+	public void updateWebsite(CmsWebsiteDto cmsWebsiteDto) {
 		CmsWebsite cmsWebsite = new CmsWebsite();
-		BeanUtils.copyProperties(cmsWebsiteEditDto,cmsWebsite);
+		BeanUtils.copyProperties(cmsWebsiteDto,cmsWebsite);
 
-		this.update(cmsWebsite);
+		this.update(cmsWebsite.getId(),cmsWebsite);
+	}
+
+	/**
+	 * 获取新站点
+	 *
+	 * @param cmsWebsiteId 站点id
+	 */
+	@Override
+	public CmsWebsite getWebsite(Integer cmsWebsiteId) {
+		Optional<CmsWebsite> cmsWebsiteOptional = cmsWebsiteRepository.findById(cmsWebsiteId);
+		if(cmsWebsiteOptional.isEmpty()){
+			throw new BaseException("站点不存在");
+		}
+		CmsWebsite cmsWebsite = cmsWebsiteOptional.get();
+		cmsWebsite.setDatabaseUsername(null);
+		cmsWebsite.setDatabasePassword(null);
+		return cmsWebsite;
 	}
 }

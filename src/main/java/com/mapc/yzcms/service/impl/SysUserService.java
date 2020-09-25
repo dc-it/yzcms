@@ -17,7 +17,7 @@ import java.util.List;
  */
 @Transactional(rollbackFor = Exception.class)
 @Service
-public class SysUserService extends BaseService<SysUser, Long> implements ISysUserService {
+public class SysUserService extends BaseService<SysUser, Integer> implements ISysUserService {
 
 	private final SysUserRepository sysUserRepository;
 

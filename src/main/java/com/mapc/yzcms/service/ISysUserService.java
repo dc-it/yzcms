@@ -7,7 +7,7 @@ import com.mapc.yzcms.entity.SysUser;
  *
  * @author duchao
  */
-public interface ISysUserService extends IBaseService<SysUser, Long> {
+public interface ISysUserService extends IBaseService<SysUser, Integer> {
 
 	/**
 	 * 查找用户

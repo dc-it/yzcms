@@ -37,7 +37,6 @@ public class CmsMenuController {
 
 	@PutMapping
 	public void updateMenu(@RequestBody CmsMenu cmsMenu) {
-		menuService.update(cmsMenu);
 	}
 
 }

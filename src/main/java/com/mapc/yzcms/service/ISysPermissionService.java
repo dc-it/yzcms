@@ -9,7 +9,7 @@ import java.util.List;
  *
  * @author duchao
  */
-public interface ISysPermissionService extends IBaseService<SysPermission, Long> {
+public interface ISysPermissionService extends IBaseService<SysPermission, Integer> {
 
 	/**
 	 * 获取用户权限

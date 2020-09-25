@@ -1,13 +1,11 @@
 package com.mapc.yzcms.entity;
 
-import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 
 /**
  * 网站实体类
@@ -52,7 +50,7 @@ public class CmsWebsite extends BaseEntity {
 	/**
 	 * logo图片
 	 */
-	private Integer logoImageId;
+	private Integer cmsLogoId;
 
 	/**
 	 * 网站slogan

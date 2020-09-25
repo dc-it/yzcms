@@ -1,7 +1,7 @@
 package com.mapc.yzcms.controller;
 
 import com.mapc.yzcms.common.api.Result;
-import com.mapc.yzcms.dto.CmsWebsiteEditDto;
+import com.mapc.yzcms.dto.CmsWebsiteDto;
 import com.mapc.yzcms.service.ICmsWebsiteService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -27,15 +27,30 @@ public class CmsWebsiteController {
 		this.cmsWebsiteService = cmsWebsiteService;
 	}
 
+	@ApiOperation("获取站点列表/分页")
+	@ApiImplicitParam(name = "id", value = "站点id", required = true)
+	@GetMapping
+	public Result<Object> getCmsWebsiteList(CmsWebsiteDto cmsWebsiteDto) {
+		//todo 根据参数是否有页码，支持分页和列表查询  pagedto
+		return Result.success();
+	}
+
+	@ApiOperation("获取某个站点")
+	@ApiImplicitParam(name = "id", value = "站点id", required = true)
+	@GetMapping("/{id}")
+	public Result<Object> addCmsWebsite(@PathVariable("id") Integer cmsWebsiteId) {
+		return Result.success(cmsWebsiteService.getWebsite(cmsWebsiteId));
+	}
+
 	@ApiOperation("创建站点")
 	@PostMapping
-	public Result<Object> addCmsWebsite(@Validated @RequestBody CmsWebsiteEditDto cmsWebsiteEditDto) {
-		cmsWebsiteService.addWebsite(cmsWebsiteEditDto);
+	public Result<Object> addCmsWebsite(@Validated @RequestBody CmsWebsiteDto cmsWebsiteDto) {
+		cmsWebsiteService.addWebsite(cmsWebsiteDto);
 		return Result.success();
 	}
 
 	@ApiOperation("删除站点")
-	@ApiImplicitParam(name = "id",value = "站点id",required = true)
+	@ApiImplicitParam(name = "id", value = "站点id", required = true)
 	@DeleteMapping("/{id}")
 	public Result<Object> deleteCmsWebsite(@PathVariable("id") Integer cmsWebsiteId) {
 		cmsWebsiteService.deleteWebsite(cmsWebsiteId);
@@ -43,11 +58,11 @@ public class CmsWebsiteController {
 	}
 
 	@ApiOperation("更新站点")
-	@ApiImplicitParam(name = "id",value = "站点id",required = true)
+	@ApiImplicitParam(name = "id", value = "站点id", required = true)
 	@PutMapping("/{id}")
-	public Result<Object> updateCmsWebsite(@PathVariable("id") Integer cmsWebsiteId,@RequestBody CmsWebsiteEditDto cmsWebsiteEditDto) {
-		cmsWebsiteEditDto.setId(cmsWebsiteId);
-		cmsWebsiteService.updateWebsite(cmsWebsiteEditDto);
+	public Result<Object> updateCmsWebsite(@PathVariable("id") Integer cmsWebsiteId, @RequestBody CmsWebsiteDto cmsWebsiteDto) {
+		cmsWebsiteDto.setId(cmsWebsiteId);
+		cmsWebsiteService.updateWebsite(cmsWebsiteDto);
 		return Result.success();
 	}
 

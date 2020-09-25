@@ -16,7 +16,7 @@ import java.util.List;
  */
 @Transactional(rollbackFor = Exception.class)
 @Service
-public class SysPermissionService extends BaseService<SysPermission, Long> implements ISysPermissionService {
+public class SysPermissionService extends BaseService<SysPermission, Integer> implements ISysPermissionService {
 
 	private final SysPermissionRepository sysPermissionRepository;
 

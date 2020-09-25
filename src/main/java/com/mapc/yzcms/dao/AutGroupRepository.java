@@ -9,5 +9,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  *
  * @author duchao
  */
-public interface AutGroupRepository extends JpaRepository<AutGroup, Integer> {
+public interface AutGroupRepository extends JpaRepository<AutGroup, Long> {
 }

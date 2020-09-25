@@ -1,5 +1,6 @@
 package com.mapc.yzcms.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -24,9 +25,4 @@ public abstract class BaseEntity implements Serializable {
 	@Getter
 	@Column(nullable = false)
 	protected LocalDateTime updateTime;
-
-//    @PreUpdate
-//    private void setUpdateTime() {
-//        this.updateTime = LocalDateTime.now();
-//    }
 }
