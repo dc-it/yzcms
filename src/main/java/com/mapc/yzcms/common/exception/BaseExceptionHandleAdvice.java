@@ -1,5 +1,6 @@
 package com.mapc.yzcms.common.exception;
 
+import cn.hutool.core.collection.CollectionUtil;
 import com.mapc.yzcms.common.api.Result;
 import com.mapc.yzcms.common.api.ResultCode;
 import lombok.extern.slf4j.Slf4j;
@@ -8,8 +9,9 @@ import org.springframework.beans.TypeMismatchException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.http.converter.HttpMessageNotWritableException;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.validation.BindException;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.HttpMediaTypeNotAcceptableException;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -24,6 +26,8 @@ import org.springframework.web.multipart.support.MissingServletRequestPartExcept
 import org.springframework.web.servlet.NoHandlerFoundException;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 全局异常切面
@@ -58,39 +62,60 @@ public class BaseExceptionHandleAdvice {
 	})
 	public final Result<Object> handleException(Exception ex, HttpServletRequest request) throws Exception {
 		HttpStatus status = null;
+		String error = null;
 		if (ex instanceof HttpRequestMethodNotSupportedException) {
 			status = HttpStatus.METHOD_NOT_ALLOWED;
+			error = status.getReasonPhrase();
 		} else if (ex instanceof HttpMediaTypeNotSupportedException) {
 			status = HttpStatus.UNSUPPORTED_MEDIA_TYPE;
+			error = status.getReasonPhrase();
 		} else if (ex instanceof HttpMediaTypeNotAcceptableException) {
 			status = HttpStatus.NOT_ACCEPTABLE;
+			error = status.getReasonPhrase();
 		} else if (ex instanceof MissingPathVariableException) {
 			status = HttpStatus.INTERNAL_SERVER_ERROR;
+			error = status.getReasonPhrase();
 		} else if (ex instanceof MissingServletRequestParameterException) {
 			status = HttpStatus.BAD_REQUEST;
+			error = status.getReasonPhrase();
 		} else if (ex instanceof ServletRequestBindingException) {
 			status = HttpStatus.BAD_REQUEST;
+			error = status.getReasonPhrase();
 		} else if (ex instanceof ConversionNotSupportedException) {
 			status = HttpStatus.INTERNAL_SERVER_ERROR;
+			error = status.getReasonPhrase();
 		} else if (ex instanceof TypeMismatchException) {
 			status = HttpStatus.BAD_REQUEST;
+			error = status.getReasonPhrase();
 		} else if (ex instanceof HttpMessageNotReadableException) {
 			status = HttpStatus.BAD_REQUEST;
+			error = status.getReasonPhrase();
 		} else if (ex instanceof HttpMessageNotWritableException) {
 			status = HttpStatus.INTERNAL_SERVER_ERROR;
+			error = status.getReasonPhrase();
 		} else if (ex instanceof MethodArgumentNotValidException) {
 			status = HttpStatus.BAD_REQUEST;
+			BindingResult bindingResult = ((MethodArgumentNotValidException) ex).getBindingResult();
+			if (bindingResult != null) {
+				List<ObjectError> errorList = bindingResult.getAllErrors();
+				error = CollectionUtil.isNotEmpty(errorList) ? errorList.stream().map(ObjectError::getDefaultMessage).distinct().collect(Collectors.joining(",")) : null;
+			}
 		} else if (ex instanceof MissingServletRequestPartException) {
 			status = HttpStatus.BAD_REQUEST;
+			error = status.getReasonPhrase();
 		} else if (ex instanceof BindException) {
 			status = HttpStatus.BAD_REQUEST;
+			List<ObjectError> errorList = ((BindException) ex).getAllErrors();
+			error = CollectionUtil.isNotEmpty(errorList) ? errorList.stream().map(ObjectError::getDefaultMessage).distinct().collect(Collectors.joining(",")) : null;
 		} else if (ex instanceof NoHandlerFoundException) {
 			status = HttpStatus.NOT_FOUND;
+			error = status.getReasonPhrase();
 		} else if (ex instanceof AsyncRequestTimeoutException) {
 			status = HttpStatus.SERVICE_UNAVAILABLE;
+			error = status.getReasonPhrase();
 		}
 		log.error("{}请求异常：{}-{}", request.getRequestURI(), status.value(), status.getReasonPhrase());
-		return Result.failed(status.value(), String.format("请求有异常：%s", status.getReasonPhrase()));
+		return Result.failed(status.value(), String.format("请求有异常：%s", error));
 	}
 
 	/**

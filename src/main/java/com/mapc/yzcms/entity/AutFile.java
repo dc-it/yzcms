@@ -27,7 +27,7 @@ public class AutFile extends BaseEntity {
 
 	@Id
 	@Column(name = "id", unique = true, nullable = false)
-	private long id;
+	private Long id;
 
 	/**
 	 * 名称
@@ -47,7 +47,7 @@ public class AutFile extends BaseEntity {
 	/**
 	 * 所属网站
 	 */
-	private long websiteId;
+	private Integer cmsWebsiteId;
 
 	@PrePersist
 	private void init() {

@@ -32,7 +32,6 @@ import java.util.List;
 @EnableKnife4j
 @Profile({"dev"})
 @Import(BeanValidatorPluginsConfiguration.class)
-@ConditionalOnProperty(value = {"knife4j.enable"}, matchIfMissing = true)
 public class SwaggerConfig implements WebMvcConfigurer {
 
 	@Value("${spring.application.name}")

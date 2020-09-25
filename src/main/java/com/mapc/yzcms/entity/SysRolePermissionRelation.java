@@ -27,15 +27,15 @@ public class SysRolePermissionRelation extends BaseEntity{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
-	private int id;
+	private Integer id;
 
 	/**
 	 * 角色id
 	 */
-	private long roleId;
+	private Integer sysRoleId;
 
 	/**
 	 * 权限id
 	 */
-	private long permissionId;
+	private Integer sysPermissionId;
 }

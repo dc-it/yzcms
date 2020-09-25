@@ -27,15 +27,15 @@ public class SysUserRoleRelation extends BaseEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
-	private int id;
+	private Integer id;
 
 	/**
 	 * 用户id
 	 */
-	private long userId;
+	private Integer sysUserId;
 
 	/**
 	 * 角色id
 	 */
-	private long roleId;
+	private Integer sysRoleId;
 }

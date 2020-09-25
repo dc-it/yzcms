@@ -28,7 +28,7 @@ public class SysUser extends BaseEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
-	private int id;
+	private Integer id;
 
 	/**
 	 * 用户名：字母数字必须有
@@ -39,11 +39,6 @@ public class SysUser extends BaseEntity {
 	 * 密码
 	 */
 	private String password;
-
-	/**
-	 * 头像
-	 */
-	private long imageId;
 
 	/**
 	 * 手机号
@@ -73,5 +68,5 @@ public class SysUser extends BaseEntity {
 	/**
 	 * 状态：启用、禁用
 	 */
-	private boolean status;
+	private Boolean status;
 }

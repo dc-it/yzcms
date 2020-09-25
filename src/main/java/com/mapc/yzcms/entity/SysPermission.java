@@ -27,12 +27,12 @@ public class SysPermission extends BaseEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
-	private int id;
+	private Integer id;
 
 	/**
 	 * 父id
 	 */
-	private long pid;
+	private Integer pid;
 
 	/**
 	 * 权限名称
@@ -52,7 +52,7 @@ public class SysPermission extends BaseEntity {
 	/**
 	 * 权限类型：0->目录；1->菜单；2->按钮（接口绑定权限）
 	 */
-	private int type;
+	private Integer type;
 
 	/**
 	 * 前端资源路径
@@ -62,11 +62,11 @@ public class SysPermission extends BaseEntity {
 	/**
 	 * 启用状态；0->禁用；1->启用
 	 */
-	private boolean status;
+	private Boolean status;
 
 	/**
 	 * 排序
 	 */
-	private int sort;
+	private Integer sort;
 
 }

@@ -1,20 +1,33 @@
 package com.mapc.yzcms.common.api;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+
 import java.util.Objects;
 
 /**
  * 通用返回对象
- * Created by macro on 2019/4/19.
+ *
+ * @author duchao
  */
+@Data
+@ApiModel(value = "响应结果")
 public class Result<T> {
-	private long code;
+
+	@ApiModelProperty(name = "code", value = "状态码")
+	private int code;
+
+	@ApiModelProperty(name = "message", value = "消息提示")
 	private String message;
+
+	@ApiModelProperty(name = "data", value = "响应数据")
 	private T data;
 
 	protected Result() {
 	}
 
-	protected Result(long code, String message, T data) {
+	protected Result(int code, String message, T data) {
 		this.code = code;
 		this.message = message;
 		this.data = data;
@@ -82,10 +95,11 @@ public class Result<T> {
 
 	/**
 	 * 失败返回结果
-	 * @param code  状态码
+	 *
+	 * @param code    状态码
 	 * @param message 提示信息
 	 */
-	public static <T> Result<T> failed(int code,String message) {
+	public static <T> Result<T> failed(int code, String message) {
 		return new Result<T>(code, message, null);
 	}
 
@@ -124,29 +138,5 @@ public class Result<T> {
 	 */
 	public static <T> Result<T> forbidden(T data) {
 		return new Result<T>(ResultCode.FORBIDDEN.getCode(), ResultCode.FORBIDDEN.getMessage(), data);
-	}
-
-	public long getCode() {
-		return code;
-	}
-
-	public void setCode(long code) {
-		this.code = code;
-	}
-
-	public String getMessage() {
-		return message;
-	}
-
-	public void setMessage(String message) {
-		this.message = message;
-	}
-
-	public T getData() {
-		return data;
-	}
-
-	public void setData(T data) {
-		this.data = data;
 	}
 }

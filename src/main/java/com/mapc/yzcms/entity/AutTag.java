@@ -27,7 +27,7 @@ public class AutTag extends BaseEntity {
 
 	@Id
 	@Column(name = "id", unique = true, nullable = false)
-	private long id;
+	private Long id;
 
 	/**
 	 * 名称
@@ -37,17 +37,17 @@ public class AutTag extends BaseEntity {
 	/**
 	 * 排序
 	 */
-	private int sort;
+	private Integer sort;
 
 	/**
 	 * 这个标签下文章数量
 	 */
-	private int articleNum;
+	private Integer articleNum;
 
 	/**
 	 * 所属网站
 	 */
-	private long websiteId;
+	private Integer cmsWebsiteId;
 
 	@PrePersist
 	private void init() {

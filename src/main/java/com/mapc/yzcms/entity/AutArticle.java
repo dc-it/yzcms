@@ -27,7 +27,7 @@ public class AutArticle extends BaseEntity {
 
 	@Id
 	@Column(name = "id", unique = true, nullable = false)
-	private long id;
+	private Long id;
 
 	/**
 	 * 标题
@@ -45,24 +45,19 @@ public class AutArticle extends BaseEntity {
 	private String description;
 
 	/**
-	 * 内容
-	 */
-	private String content;
-
-	/**
 	 * 缩略图（关联cms_file）
 	 */
-	private long imageId;
+	private Long autImageId;
 
 	/**
 	 * 作者id
 	 */
-	private String authorId;
+	private Long autAuthorId;
 
 	/**
 	 * 类型：1->推荐，2->置顶
 	 */
-	private int type;
+	private Integer type;
 
 	/**
 	 * 访问路径
@@ -72,22 +67,22 @@ public class AutArticle extends BaseEntity {
 	/**
 	 * 是否审核
 	 */
-	private boolean check;
+	private Boolean check;
 
 	/**
 	 * 阅读数
 	 */
-	private int pageview;
+	private Integer pageview;
 
 	/**
 	 * 所属菜单
 	 */
-	private long menuId;
+	private Integer cmsMenuId;
 
 	/**
 	 * 所属网站
 	 */
-	private long websiteId;
+	private Integer cmsWebsiteId;
 
 	@PrePersist
 	private void init() {

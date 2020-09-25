@@ -28,7 +28,7 @@ public class AutAuthor extends BaseEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
-	private int id;
+	private Long id;
 
 	/**
 	 * 账户：字母数字必须有
@@ -46,9 +46,9 @@ public class AutAuthor extends BaseEntity {
 	private String nickName;
 
 	/**
-	 * 缩略图（关联cms_file）
+	 * 头像id（关联aut_file）
 	 */
-	private long imageId;
+	private Long autAvatarId;
 
 	/**
 	 * 手机号
@@ -73,6 +73,6 @@ public class AutAuthor extends BaseEntity {
 	/**
 	 * 状态：启用、禁用
 	 */
-	private boolean status;
+	private Boolean status;
 
 }

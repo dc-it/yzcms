@@ -26,7 +26,7 @@ public class SysDict extends BaseEntity{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
-	private int id;
+	private Integer id;
 
 	/**
 	 * 文本
@@ -41,6 +41,6 @@ public class SysDict extends BaseEntity{
 	/**
 	 * 父id，跟字典为0
 	 */
-	private int pid;
+	private Integer pid;
 
 }

@@ -27,7 +27,7 @@ public class AutArticleContent extends BaseEntity {
 
 	@Id
 	@Column(name = "id", unique = true, nullable = false)
-	private long id;
+	private Long id;
 
 	/**
 	 * 内容
@@ -37,17 +37,17 @@ public class AutArticleContent extends BaseEntity {
 	/**
 	 * 所属文章id
 	 */
-	private long articleId;
+	private Long articleId;
 
 	/**
 	 * 所属菜单
 	 */
-	private long menuId;
+	private Integer cmsMenuId;
 
 	/**
 	 * 所属网站
 	 */
-	private long websiteId;
+	private Integer cmsWebsiteId;
 
 	@PrePersist
 	private void init() {

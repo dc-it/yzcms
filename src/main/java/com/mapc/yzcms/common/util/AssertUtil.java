@@ -18,4 +18,10 @@ public class AssertUtil {
 		}
 		return text;
 	}
+
+	public static void isFalse(boolean expression, String errorMsgTemplate, Object... params) throws BaseException {
+		if (expression) {
+			throw new BaseException(StrUtil.format(errorMsgTemplate, params));
+		}
+	}
 }

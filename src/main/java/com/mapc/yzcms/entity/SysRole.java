@@ -27,7 +27,7 @@ public class SysRole extends BaseEntity{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
-	private int id;
+	private Integer id;
 
 	/**
 	 * 角色名称
@@ -47,10 +47,10 @@ public class SysRole extends BaseEntity{
 	/**
 	 * 排序
 	 */
-	private int sort;
+	private Integer sort;
 
 	/**
 	 * 状态
 	 */
-	private boolean status;
+	private Boolean status;
 }

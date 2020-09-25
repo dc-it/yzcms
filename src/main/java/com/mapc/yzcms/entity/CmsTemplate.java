@@ -27,12 +27,12 @@ public class CmsTemplate extends BaseEntity{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
-	private int id;
+	private Integer id;
 
 	/**
 	 * 模板组id
 	 */
-	private long templateGroupId;
+	private Integer cmsTemplateGroupId;
 
 	/**
 	 * 模板文件名
@@ -42,7 +42,7 @@ public class CmsTemplate extends BaseEntity{
 	/**
 	 * 类型：1->首页，2->频道页，3->列表页，4->详情页
 	 */
-	private int type;
+	private Integer type;
 
 	/**
 	 * 访问路径（templateGroupPath+templatePath）

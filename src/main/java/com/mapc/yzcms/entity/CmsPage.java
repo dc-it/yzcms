@@ -27,7 +27,7 @@ public class CmsPage extends BaseEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
-	private int id;
+	private Integer id;
 
 	/**
 	 * 标题
@@ -57,5 +57,5 @@ public class CmsPage extends BaseEntity {
 	/**
 	 * 所属网站
 	 */
-	private long websiteId;
+	private Integer cmsWebsiteId;
 }

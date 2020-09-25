@@ -27,20 +27,20 @@ public class SysUserPermissionRelation extends BaseEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
-	private int id;
+	private Integer id;
 
 	/**
 	 * 用户id
 	 */
-	private long userId;
+	private Integer sysUserId;
 
 	/**
 	 * 权限id
 	 */
-	private long permissionId;
+	private Integer sysPermissionId;
 
 	/**
 	 * 是否拥有此权限，补充角色权限用的不足
 	 */
-	private boolean own;
+	private Boolean own;
 }

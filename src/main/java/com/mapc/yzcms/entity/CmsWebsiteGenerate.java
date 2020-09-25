@@ -27,12 +27,12 @@ public class CmsWebsiteGenerate extends BaseEntity{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
-	private int id;
+	private Integer id;
 
 	/**
 	 * 生成网站类型：1->完全静态，2->伪静态
 	 */
-	private int type;
+	private Integer type;
 
 	/**
 	 * 访问网址（demo.xxx.com）
@@ -47,10 +47,10 @@ public class CmsWebsiteGenerate extends BaseEntity{
 	/**
 	 * 所属网站
 	 */
-	private long websiteId;
+	private Integer cmsWebsiteId;
 
 	/**
 	 * 使用状态
 	 */
-	private boolean use;
+	private Boolean use;
 }

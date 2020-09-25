@@ -1,5 +1,6 @@
 package com.mapc.yzcms.service;
 
+import com.mapc.yzcms.dto.CmsWebsiteEditDto;
 import com.mapc.yzcms.entity.CmsWebsite;
 
 /**
@@ -12,9 +13,16 @@ public interface ICmsWebsiteService extends IBaseService<CmsWebsite, Integer> {
 	/**
 	 * 添加新站点
 	 *
-	 * @param cmsWebsite 站点
+	 * @param cmsWebsiteEditDto 站点
 	 */
-	void addWebsite(CmsWebsite cmsWebsite);
+	void addWebsite(CmsWebsiteEditDto cmsWebsiteEditDto);
+
+	/**
+	 * 更新站点
+	 *
+	 * @param cmsWebsiteEditDto 站点
+	 */
+	void updateWebsite(CmsWebsiteEditDto cmsWebsiteEditDto);
 
 	/**
 	 * 删除新站点

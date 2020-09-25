@@ -28,17 +28,17 @@ public class CmsMenu extends BaseEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
-	private int id;
+	private Integer id;
 
 	/**
 	 * 所属网站
 	 */
-	private long websiteId;
+	private Integer cmsWebsiteId;
 
 	/**
 	 * 所属父id
 	 */
-	private long pid;
+	private Integer pid;
 
 	/**
 	 * 名称
@@ -68,5 +68,5 @@ public class CmsMenu extends BaseEntity {
 	/**
 	 * 排序
 	 */
-	private int sort;
+	private Integer sort;
 }

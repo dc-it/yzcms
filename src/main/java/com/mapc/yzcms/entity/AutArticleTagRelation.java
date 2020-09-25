@@ -27,22 +27,22 @@ public class AutArticleTagRelation extends BaseEntity{
 
 	@Id
 	@Column(name = "id", unique = true, nullable = false)
-	private long id;
+	private Long id;
 
 	/**
 	 * 文章id
 	 */
-	private long articleId;
+	private Long autArticleId;
 
 	/**
 	 * 标签id
 	 */
-	private long tagId;
+	private Long autTagId;
 
 	/**
 	 * 所属网站
 	 */
-	private long websiteId;
+	private Integer cmsWebsiteId;
 
 	@PrePersist
 	private void init() {

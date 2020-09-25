@@ -27,7 +27,7 @@ public class CmsLink extends BaseEntity{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
-	private int id;
+	private Integer id;
 
 	/**
 	 * 名称
@@ -37,7 +37,7 @@ public class CmsLink extends BaseEntity{
 	/**
 	 * 缩略图（关联cms_file）
 	 */
-	private long imageId;
+	private Long cmsImageId;
 
 	/**
 	 * 网址
@@ -52,15 +52,15 @@ public class CmsLink extends BaseEntity{
 	/**
 	 * 顺序
 	 */
-	private int sort;
+	private Integer sort;
 
 	/**
 	 * 所属网站
 	 */
-	private long websiteId;
+	private Integer cmsWebsiteId;
 
 	/**
 	 * 审核状态
 	 */
-	private boolean check;
+	private Boolean check;
 }

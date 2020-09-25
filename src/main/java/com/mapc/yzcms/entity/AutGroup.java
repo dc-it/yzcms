@@ -26,12 +26,12 @@ public class AutGroup extends BaseEntity{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
-	private int id;
+	private Long id;
 
 	/**
 	 * 作者
 	 */
-	private int authorId;
+	private Long autAuthorId;
 
 	/**
 	 * 组名
@@ -51,6 +51,6 @@ public class AutGroup extends BaseEntity{
 	/**
 	 * 父id，跟字典为0
 	 */
-	private int pid;
+	private Long pid;
 
 }

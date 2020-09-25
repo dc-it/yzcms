@@ -26,21 +26,21 @@ public class AutGroupArticleRelation extends BaseEntity{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
-	private int id;
+	private Long id;
 
 	/**
 	 * 作者
 	 */
-	private int authorId;
+	private Long autAuthorId;
 
 	/**
 	 * 分组id
 	 */
-	private int groupId;
+	private Long autGroupId;
 
 	/**
 	 * 文章id
 	 */
-	private long articleId;
+	private Long autArticleId;
 
 }

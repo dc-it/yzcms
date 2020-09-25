@@ -45,10 +45,13 @@ public class DataSourceProperties {
 	 *
 	 * @return
 	 */
-	public String getIpPort() {
+	public String getPrimaryDatabaseIpPort() {
 		return this.url.substring(this.url.indexOf("//")+2,this.url.lastIndexOf("/"));
 	}
 
+	public String getPrimaryDatabaseName(){
+		return this.url.substring(this.url.lastIndexOf("/")+1,this.url.indexOf("?"));
+	}
 
 
 }
