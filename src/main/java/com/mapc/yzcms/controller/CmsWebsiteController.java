@@ -30,7 +30,7 @@ public class CmsWebsiteController {
 	@ApiOperation("获取站点列表/分页")
 	@ApiImplicitParam(name = "id", value = "站点id", required = true)
 	@GetMapping
-	public Result<Object> getCmsWebsiteList(CmsWebsiteDto cmsWebsiteDto) {
+	public Result getCmsWebsiteList(CmsWebsiteDto cmsWebsiteDto) {
 		//todo 根据参数是否有页码，支持分页和列表查询  pagedto
 		return Result.success();
 	}

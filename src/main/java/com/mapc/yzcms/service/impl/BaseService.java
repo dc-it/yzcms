@@ -2,7 +2,9 @@ package com.mapc.yzcms.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
+import cn.hutool.core.collection.CollectionUtil;
 import com.mapc.yzcms.common.util.DataUtil;
+import com.mapc.yzcms.dto.ResultData;
 import com.mapc.yzcms.service.IBaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -15,6 +17,7 @@ import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.lang.reflect.ParameterizedType;
+import java.sql.ResultSet;
 import java.util.List;
 import java.util.Optional;
 
@@ -110,5 +113,26 @@ public class BaseService<T, K> implements IBaseService<T, K> {
 	@Override
 	public Page<T> getPage(T entity, Pageable pageable) {
 		return jpaRepository.findAll(Example.of(entity), pageable);
+	}
+
+	/**
+	 * 获取列表/分页
+	 *
+	 * @param entity
+	 * @param pageable
+	 * @return
+	 */
+	@Override
+	public ResultData<T> getListOrPage(T entity, Pageable pageable) {
+
+		ResultData<T> resultData = new ResultData<>();
+
+		if(pageable==null){
+			//resultData.setData(this.getList(entity));
+		}else{
+			Page<T> page = this.getPage(entity, pageable);
+		}
+
+		return null;
 	}
 }

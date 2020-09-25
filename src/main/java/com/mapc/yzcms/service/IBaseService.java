@@ -1,5 +1,6 @@
 package com.mapc.yzcms.service;
 
+import com.mapc.yzcms.dto.ResultData;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -56,5 +57,13 @@ public interface IBaseService<T, K> {
 	 * @return
 	 */
 	Page<T> getPage(T entity, Pageable pageable);
+
+	/**
+	 * 获取列表/分页
+	 * @param entity
+	 * @param pageable
+	 * @return
+	 */
+	ResultData<T> getListOrPage(T entity, Pageable pageable);
 
 }
