@@ -2,13 +2,13 @@ package com.mapc.yzcms.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
-import cn.hutool.core.collection.CollectionUtil;
 import com.mapc.yzcms.common.util.DataUtil;
-import com.mapc.yzcms.dto.ResultData;
+import com.mapc.yzcms.common.api.ListOrPage;
 import com.mapc.yzcms.service.IBaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,8 +17,8 @@ import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.lang.reflect.ParameterizedType;
-import java.sql.ResultSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -123,16 +123,28 @@ public class BaseService<T, K> implements IBaseService<T, K> {
 	 * @return
 	 */
 	@Override
-	public ResultData<T> getListOrPage(T entity, Pageable pageable) {
+	public ListOrPage getListOrPage(T entity, Pageable pageable) {
 
-		ResultData<T> resultData = new ResultData<>();
+		ListOrPage listOrPage = new ListOrPage();
 
 		if(pageable==null){
-			//resultData.setData(this.getList(entity));
+			listOrPage.setPage(false);
+			listOrPage.setData(this.getList(entity));
 		}else{
-			Page<T> page = this.getPage(entity, pageable);
-		}
 
-		return null;
+			Objects.requireNonNull(pageable.getPageNumber(),"页码不能为空");
+			Objects.requireNonNull(pageable.getPageSize(),"一页条数不能为空");
+
+			PageRequest pageRequest = PageRequest.of(pageable.getPageNumber()-1, pageable.getPageSize());
+
+			Page<T> page = this.getPage(entity, pageRequest);
+			listOrPage.setPage(true);
+			listOrPage.setData(page.getContent());
+			listOrPage.setTotalPage(page.getTotalPages());
+			listOrPage.setTotalElement(page.getTotalElements());
+			listOrPage.setPageSize(page.getPageable().getPageSize());
+			listOrPage.setPageNumber(page.getPageable().getPageNumber()+1);
+		}
+		return listOrPage;
 	}
 }

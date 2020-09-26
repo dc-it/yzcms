@@ -1,6 +1,7 @@
 package com.mapc.yzcms.controller;
 
 import com.mapc.yzcms.common.api.Result;
+import com.mapc.yzcms.common.api.ListOrPage;
 import com.mapc.yzcms.dto.CmsWebsiteDto;
 import com.mapc.yzcms.service.ICmsWebsiteService;
 import io.swagger.annotations.Api;
@@ -28,11 +29,9 @@ public class CmsWebsiteController {
 	}
 
 	@ApiOperation("获取站点列表/分页")
-	@ApiImplicitParam(name = "id", value = "站点id", required = true)
 	@GetMapping
-	public Result getCmsWebsiteList(CmsWebsiteDto cmsWebsiteDto) {
-		//todo 根据参数是否有页码，支持分页和列表查询  pagedto
-		return Result.success();
+	public Result<ListOrPage> getCmsWebsiteList(CmsWebsiteDto cmsWebsiteDto) {
+		return Result.success(cmsWebsiteService.getWebsiteListOrPage(cmsWebsiteDto));
 	}
 
 	@ApiOperation("获取某个站点")

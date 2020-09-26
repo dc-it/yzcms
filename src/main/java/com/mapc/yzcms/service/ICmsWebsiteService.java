@@ -1,5 +1,6 @@
 package com.mapc.yzcms.service;
 
+import com.mapc.yzcms.common.api.ListOrPage;
 import com.mapc.yzcms.dto.CmsWebsiteDto;
 import com.mapc.yzcms.entity.CmsWebsite;
 
@@ -37,4 +38,11 @@ public interface ICmsWebsiteService extends IBaseService<CmsWebsite, Integer> {
 	 * @param cmsWebsiteId 站点id
 	 */
 	CmsWebsite getWebsite(Integer cmsWebsiteId);
+
+	/**
+	 * 获取站点列表/分页
+	 * @param cmsWebsiteDto 查询参数
+	 * @return
+	 */
+	ListOrPage getWebsiteListOrPage(CmsWebsiteDto cmsWebsiteDto);
 }

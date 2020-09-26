@@ -2,9 +2,7 @@ package com.mapc.yzcms.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -19,9 +17,11 @@ import java.io.Serializable;
  */
 @ApiModel(value = "网站元素据")
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder(toBuilder = true)
 @EqualsAndHashCode(callSuper = false)
-public class CmsWebsiteDto implements Serializable {
+public class CmsWebsiteDto extends PageDto {
 
 	@ApiModelProperty(name = "id", value = "主键")
 	private Integer id;
