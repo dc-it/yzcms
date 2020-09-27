@@ -30,6 +30,12 @@ public class SystemController {
 	@PostMapping("/login")
 	public Result<Object> login(@Validated @RequestBody SysUserLoginDto sysUserLoginDto) {
 		String token = systemService.login(sysUserLoginDto);
+		return Result.success(token);
+	}
+
+	@PostMapping("/register")
+	public Result<Object> register(@Validated @RequestBody SysUserLoginDto sysUserLoginDto) {
+
 		return Result.success();
 	}
 }

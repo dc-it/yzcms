@@ -23,11 +23,13 @@ public class SystemService implements ISystemService {
 
 	private final UserDetailsService userDetailsService;
 	private final PasswordEncoder passwordEncoder;
+	private final JwtTokenUtil jwtTokenUtil;
 
 	@Autowired
-	public SystemService(UserDetailsService userDetailsService,PasswordEncoder passwordEncoder) {
+	public SystemService(UserDetailsService userDetailsService,PasswordEncoder passwordEncoder,JwtTokenUtil jwtTokenUtil) {
 		this.userDetailsService = userDetailsService;
 		this.passwordEncoder = passwordEncoder;
+		this.jwtTokenUtil = jwtTokenUtil;
 	}
 
 	/**
@@ -42,6 +44,6 @@ public class SystemService implements ISystemService {
 		if (!passwordEncoder.matches(sysUserLoginDto.getPassword(), userDetails.getPassword())) {
 			throw new BadCredentialsException("密码不正确");
 		}
-		return null;
+		return jwtTokenUtil.generateToken(userDetails);
 	}
 }
