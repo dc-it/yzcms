@@ -26,7 +26,10 @@ import org.springframework.web.multipart.support.MissingServletRequestPartExcept
 import org.springframework.web.servlet.NoHandlerFoundException;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -56,6 +59,7 @@ public class BaseExceptionHandleAdvice {
 			HttpMessageNotReadableException.class,
 			HttpMessageNotWritableException.class,
 			MethodArgumentNotValidException.class,
+			ConstraintViolationException.class,
 			MissingServletRequestPartException.class,
 			BindException.class,
 			AsyncRequestTimeoutException.class
@@ -93,7 +97,13 @@ public class BaseExceptionHandleAdvice {
 		} else if (ex instanceof HttpMessageNotWritableException) {
 			status = HttpStatus.INTERNAL_SERVER_ERROR;
 			error = status.getReasonPhrase();
-		} else if (ex instanceof MethodArgumentNotValidException) {
+		} else if (ex instanceof ConstraintViolationException) {
+			status = HttpStatus.BAD_REQUEST;
+			Set<ConstraintViolation<?>> constraintViolationSet = ((ConstraintViolationException) ex).getConstraintViolations();
+			if(CollectionUtil.isNotEmpty(constraintViolationSet)){
+				error=constraintViolationSet.stream().map(ConstraintViolation::getMessage).collect(Collectors.joining(","));
+			}
+		}else if (ex instanceof MethodArgumentNotValidException) {
 			status = HttpStatus.BAD_REQUEST;
 			BindingResult bindingResult = ((MethodArgumentNotValidException) ex).getBindingResult();
 			if (bindingResult != null) {
@@ -167,7 +177,7 @@ public class BaseExceptionHandleAdvice {
 	 */
 	@ExceptionHandler(Exception.class)
 	public final Result<Object> handleSysException(Exception ex) {
-		log.error("{}系统异常：{}", ex.getMessage());
+		log.error("系统异常：{}", ex.getMessage());
 		return Result.failed(ResultCode.FAILED);
 	}
 }
