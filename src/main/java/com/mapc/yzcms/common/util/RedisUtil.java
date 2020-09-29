@@ -51,8 +51,8 @@ public class RedisUtil {
 	 *
 	 * @param key 键
 	 */
-	public void get(final String key) {
-		redisTemplate.opsForValue().get(key);
+	public String get(final String key) {
+		return redisTemplate.opsForValue().get(key);
 	}
 
 	/**

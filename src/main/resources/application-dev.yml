@@ -66,6 +66,7 @@ logging:
 jwt:
   tokenHeader: Authorization #JWT存储的请求头
   secret: 123456123456123456123456123456123456123456 #JWT加解密使用的密钥
-  expiration: 120 #JWT的超期限时间(60*60*24=604800)
-  tokenHead: Bearer  #JWT负载中拿到开头
+  expireTime: 604800 #JWT的超期限时间(60*60*24=604800)
+  allowExpireTime: 120 #JWT允许过期时间(60*60*24=604800)
+  tokenHead: Bearer #JWT负载中拿到开头
 

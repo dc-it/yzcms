@@ -39,4 +39,15 @@ public class SysUserService extends BaseService<SysUser, Integer> implements ISy
 		Assert.notEmpty(sysUserList, "账户不存在");
 		return sysUserList.get(0);
 	}
+
+	/**
+	 * 更新账户登陆时间
+	 *
+	 * @param sysUserId      用户id
+	 * @param sysUserAccount 用户账户
+	 */
+	@Override
+	public void updateLoginTimeByIdOrAccount(Integer sysUserId, String sysUserAccount) {
+		sysUserRepository.updateLoginTimeByIdOrAccount(sysUserId,sysUserAccount);
+	}
 }

@@ -19,6 +19,19 @@ public class AssertUtil {
 		return text;
 	}
 
+	public static <T> T notNull(T object, String errorMsgTemplate, Object... params) throws BaseException {
+		if (object == null) {
+			throw new BaseException(StrUtil.format(errorMsgTemplate, params));
+		}
+		return object;
+	}
+
+	public static void isNull(Object object, String errorMsgTemplate, Object... params) throws BaseException {
+		if (object != null) {
+			throw new BaseException(StrUtil.format(errorMsgTemplate, params));
+		}
+	}
+
 	public static void isFalse(boolean expression, String errorMsgTemplate, Object... params) throws BaseException {
 		if (expression) {
 			throw new BaseException(StrUtil.format(errorMsgTemplate, params));

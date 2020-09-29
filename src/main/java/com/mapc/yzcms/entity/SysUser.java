@@ -69,4 +69,11 @@ public class SysUser extends BaseEntity {
 	 * 状态：启用、禁用
 	 */
 	private Boolean status;
+
+	/**
+	 * 账户
+	 * 可能是username、email、phone
+	 */
+	@Transient
+	private String account;
 }

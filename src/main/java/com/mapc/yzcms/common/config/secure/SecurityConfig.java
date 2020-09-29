@@ -100,8 +100,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Bean
 	public UserDetailsService userDetailsService() {
 		//获取登录用户信息
-		return username -> {
-			SysUser sysUser = sysUserService.getSysUser(username);
+		return account -> {
+			SysUser sysUser = sysUserService.getSysUser(account);
+			sysUser.setAccount(account);
 			if (sysUser != null) {
 				List<SysPermission> permissionList = sysPermissionService.getSysPermissionList(sysUser.getId());
 				return new SysUserDetails(sysUser, permissionList);

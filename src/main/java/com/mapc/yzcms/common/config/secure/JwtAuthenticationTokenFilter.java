@@ -39,16 +39,18 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 	                                FilterChain chain) throws ServletException, IOException {
 		String authHeader = request.getHeader(this.tokenHeader);
 		if (authHeader != null && authHeader.startsWith(this.tokenHead)) {
-			String authToken = authHeader.substring(this.tokenHead.length());
-			String username = jwtTokenUtil.getUserNameFromToken(authToken);
-			LOGGER.info("checking username:{}", username);
-			if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-				UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
-				if (jwtTokenUtil.validateToken(authToken, userDetails)) {
+			String authToken = authHeader.substring(this.tokenHead.length()+1);
+			String account = jwtTokenUtil.getAccountFromToken(authToken);
+			LOGGER.info("checking username:{}", account);
+			if (account != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+				UserDetails userDetails = this.userDetailsService.loadUserByUsername(account);
+				if (jwtTokenUtil.validateToken(authToken, userDetails.getUsername())) {
 					UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
 					authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-					LOGGER.info("authenticated user:{}", username);
+					LOGGER.info("authenticated user:{}", account);
 					SecurityContextHolder.getContext().setAuthentication(authentication);
+				}else{
+					System.out.println("token失效");
 				}
 			}
 		}

@@ -16,4 +16,12 @@ public interface ISysUserService extends IBaseService<SysUser, Integer> {
 	 * @return
 	 */
 	SysUser getSysUser(String account);
+
+	/**
+	 * 更新账户登陆时间
+	 *
+	 * @param sysUserId      用户id
+	 * @param sysUserAccount 用户账户
+	 */
+	void updateLoginTimeByIdOrAccount(Integer sysUserId, String sysUserAccount);
 }

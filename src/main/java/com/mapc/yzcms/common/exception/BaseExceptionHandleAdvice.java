@@ -125,7 +125,7 @@ public class BaseExceptionHandleAdvice {
 			error = status.getReasonPhrase();
 		}
 		log.error("{}请求异常：{}-{}", request.getRequestURI(), status.value(), status.getReasonPhrase());
-		return Result.failed(status.value(), String.format("请求有异常：%s", error));
+		return Result.failed(status.value(), error);
 	}
 
 	/**

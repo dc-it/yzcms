@@ -41,7 +41,7 @@ public class SysUserDetails implements UserDetails {
 
 	@Override
 	public String getUsername() {
-		return sysUser.getUsername();
+		return sysUser.getAccount();
 	}
 
 	@Override

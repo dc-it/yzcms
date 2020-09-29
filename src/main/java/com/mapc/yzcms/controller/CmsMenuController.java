@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
  * @author duchao
  */
 @RestController
-@RequestMapping("/cms/menu")
+@RequestMapping("/cms/menus")
 public class CmsMenuController {
 
 	private final ICmsMenuService menuService;
