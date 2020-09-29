@@ -7,6 +7,7 @@ import com.mapc.yzcms.common.exception.BaseException;
 import com.mapc.yzcms.common.util.*;
 import com.mapc.yzcms.dto.SysUserDetails;
 import com.mapc.yzcms.dto.SysUserLoginDto;
+import com.mapc.yzcms.dto.SysUserPasswordDto;
 import com.mapc.yzcms.dto.SysUserRegisterDto;
 import com.mapc.yzcms.entity.SysUser;
 import com.mapc.yzcms.service.IAccountService;
@@ -132,5 +133,17 @@ public class AccountService implements IAccountService {
 
 		//缓存redis
 		redisUtil.set(RedisConstant.ACCOUNT_REGISTER+account,captcha,RedisConstant.ACCOUNT_REGISTER_CAPTCHA_EXPIRE_TIME, TimeUnit.SECONDS);
+	}
+
+	@Override
+	public void updatePassword(SysUserPasswordDto sysUserPasswordDto) {
+		String account = sysUserPasswordDto.getAccount();
+		String password = sysUserPasswordDto.getPassword();
+		String rePassword = sysUserPasswordDto.getRePassword();
+		AssertUtil.isTrue(password.equals(rePassword),"确认密码不正确");
+
+		SysUser sysUser = new SysUser();
+		sysUser.setPassword(passwordEncoder.encode(password));
+		sysUserService.updateByAccount(account,sysUser);
 	}
 }

@@ -2,6 +2,7 @@ package com.mapc.yzcms.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
+import com.mapc.yzcms.common.util.AssertUtil;
 import com.mapc.yzcms.common.util.DataUtil;
 import com.mapc.yzcms.common.api.ListOrPage;
 import com.mapc.yzcms.service.IBaseService;
@@ -60,6 +61,7 @@ public class BaseService<T, K> implements IBaseService<T, K> {
 	 */
 	@Override
 	public void update(K id, T entity) {
+		AssertUtil.notNull(id,"id不能为空");
 		Optional<T> entityOptional = jpaRepository.findById(id);
 		entityOptional.ifPresent(obj -> {
 			//过滤空字符串

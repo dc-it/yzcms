@@ -3,6 +3,10 @@ package com.mapc.yzcms.common.util;
 import cn.hutool.core.util.StrUtil;
 import com.mapc.yzcms.common.exception.BaseException;
 import lombok.experimental.UtilityClass;
+import org.springframework.lang.Nullable;
+import org.springframework.util.CollectionUtils;
+
+import java.util.Collection;
 
 /**
  * Assert工具类
@@ -41,6 +45,12 @@ public class AssertUtil {
 	public static void isTrue(boolean expression, String errorMsgTemplate, Object... params) throws BaseException {
 		if (false == expression) {
 			throw new BaseException(StrUtil.format(errorMsgTemplate, params));
+		}
+	}
+
+	public static void notEmpty(@Nullable Collection<?> collection, String message) throws BaseException {
+		if (CollectionUtils.isEmpty(collection)) {
+			throw new BaseException(message);
 		}
 	}
 }

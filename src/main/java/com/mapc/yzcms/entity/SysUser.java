@@ -1,5 +1,7 @@
 package com.mapc.yzcms.entity;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -13,6 +15,7 @@ import java.time.LocalDateTime;
  *
  * @author duchao
  */
+@ApiModel(value = "系统用户")
 @Entity
 @Table(name = "sys_user")
 @Data
@@ -33,41 +36,28 @@ public class SysUser extends BaseEntity {
 	/**
 	 * 用户名：字母数字必须有
 	 */
+	@ApiModelProperty(name = "username",value = "用户名")
 	private String username;
 
-	/**
-	 * 密码
-	 */
+	@ApiModelProperty(name = "password",value = "密码")
 	private String password;
 
-	/**
-	 * 手机号
-	 */
+	@ApiModelProperty(name = "phone",value = "手机号")
 	private String phone;
 
-	/**
-	 * 邮箱
-	 */
+	@ApiModelProperty(name = "email",value = "邮箱")
 	private String email;
 
-	/**
-	 * 昵称
-	 */
+	@ApiModelProperty(name = "nickName",value = "昵称")
 	private String nickName;
 
-	/**
-	 * 备注信息
-	 */
+	@ApiModelProperty(name = "remark",value = "备注")
 	private String remark;
 
-	/**
-	 * 最后登陆时间
-	 */
+	@ApiModelProperty(name = "loginTime",value = "最后登陆时间")
 	private LocalDateTime loginTime;
 
-	/**
-	 * 状态：启用、禁用
-	 */
+	@ApiModelProperty(name = "status",value = "状态:true->启用，false->禁用",allowableValues = "true,false")
 	private Boolean status;
 
 	/**

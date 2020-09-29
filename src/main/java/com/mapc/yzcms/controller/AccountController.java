@@ -2,6 +2,7 @@ package com.mapc.yzcms.controller;
 
 import com.mapc.yzcms.common.api.Result;
 import com.mapc.yzcms.dto.SysUserLoginDto;
+import com.mapc.yzcms.dto.SysUserPasswordDto;
 import com.mapc.yzcms.dto.SysUserRegisterDto;
 import com.mapc.yzcms.service.IAccountService;
 import io.swagger.annotations.Api;
@@ -47,10 +48,17 @@ public class AccountController {
 	}
 
 	@ApiOperation("获取验证码")
-	@ApiImplicitParam(name = "account",value = "验证码",required = true)
+	@ApiImplicitParam(name = "account",value = "账户",required = true)
 	@GetMapping("/captcha")
 	public Result<Object> getCaptcha(@NotBlank(message = "账户不能为空") String account) {
 		accountService.getCaptcha(account);
+		return Result.success();
+	}
+
+	@ApiOperation("修改密码")
+	@PutMapping("/password")
+	public Result<Object> updateAccountPassword(@Validated @RequestBody SysUserPasswordDto sysUserPasswordDto) {
+		accountService.updatePassword(sysUserPasswordDto);
 		return Result.success();
 	}
 }

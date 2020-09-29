@@ -67,7 +67,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 						"/v2/api-docs/**"
 				)
 				.permitAll()
-				.antMatchers("/account/login","/account/register","/account/captcha")// 对登录注册要允许匿名访问
+				.antMatchers("/account/**")// 对登录注册要允许匿名访问
 				.permitAll()
 				.antMatchers(HttpMethod.OPTIONS)//跨域请求会先进行一次options请求
 				.permitAll()
@@ -88,7 +88,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(userDetailsService())
-				.passwordEncoder(passwordEncoder());
+				.passwordEncoder(new BCryptPasswordEncoder());
 	}
 
 	@Bean
