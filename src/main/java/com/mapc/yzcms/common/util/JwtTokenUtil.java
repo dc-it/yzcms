@@ -6,7 +6,6 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -40,21 +39,24 @@ public class JwtTokenUtil {
 	private Long allowExpireTime;
 
 	/**
+	 * 根据用户信息生成token
+	 */
+	public String generateToken(String account) {
+		Map<String, Object> claims = new HashMap<>(2);
+		claims.put(CLAIM_KEY_USERNAME, account);
+		claims.put(CLAIM_KEY_CREATED, new Date());
+		return generateToken(claims);
+	}
+
+	/**
 	 * 根据负责生成JWT的token
 	 */
 	private String generateToken(Map<String, Object> claims) {
 		return Jwts.builder()
 				.setClaims(claims)
-				.setExpiration(generateExpirationDate())
+				.setExpiration(generateExpireDate())
 				.signWith(SignatureAlgorithm.HS512, secret)
 				.compact();
-	}
-
-	/**
-	 * 生成token的过期时间
-	 */
-	private Date generateExpirationDate() {
-		return new Date(System.currentTimeMillis() + expireTime * 1000);
 	}
 
 	/**
@@ -72,7 +74,15 @@ public class JwtTokenUtil {
 	}
 
 	/**
-	 * 从token中获取JWT中的负载
+	 * 从token中获取过期时间
+	 */
+	private Date getExpireDateFromToken(String token) {
+		Claims claims = getClaimsFromToken(token);
+		return claims.getExpiration();
+	}
+
+	/**
+	 * 从token中获取JWT中的负载payload
 	 */
 	private Claims getClaimsFromToken(String token) {
 		try {
@@ -88,46 +98,47 @@ public class JwtTokenUtil {
 
 	/**
 	 * 验证token是否还有效
+	 * <p>
+	 * 可能：
+	 * 1、没过期
+	 * 2、过期，但是在允许过期时间范围内
 	 *
-	 * @param token   客户端传入的token
+	 * @param token 客户端传入的token
 	 */
 	public boolean validateToken(String token) {
-		Date expiredDate = getExpiredDateFromToken(token);
-		return new Date().before(expiredDate);
-	}
-
-	/**
-	 * 从token中获取过期时间
-	 */
-	private Date getExpiredDateFromToken(String token) {
-		Claims claims = getClaimsFromToken(token);
-		return claims.getExpiration();
-	}
-
-	/**
-	 * 根据用户信息生成token
-	 */
-	public String generateToken(String account) {
-		Map<String, Object> claims = new HashMap<>();
-		claims.put(CLAIM_KEY_USERNAME, account);
-		claims.put(CLAIM_KEY_CREATED, new Date());
-		return generateToken(claims);
-	}
-
-	/**
-	 * 判断token是否可以被刷新
-	 */
-	public boolean canRefresh(String token) {
-		Date expiredDate = getExpiredDateFromToken(token);
-		return !new Date().before(expiredDate) && System.currentTimeMillis()-expiredDate.getTime()<=allowExpireTime * 1000;
+		Date expireDate = getExpireDateFromToken(token);
+		return new Date().before(expireDate) || isAllowExpireTime(expireDate);
 	}
 
 	/**
 	 * 刷新token
+	 * <p>
+	 * 在允许过期时间内刷新token，否则返回老的token
 	 */
-	public String refreshToken(String token) {
+	public String refreshTokenIfCanRefresh(String token) {
 		Claims claims = getClaimsFromToken(token);
-		claims.put(CLAIM_KEY_CREATED, new Date());
-		return generateToken(claims);
+		Date expireDate = claims.getExpiration();
+		if (isAllowExpireTime(expireDate)) {
+			claims.put(CLAIM_KEY_CREATED, new Date());
+			token = generateToken(claims);
+		}
+		return token;
+	}
+
+	/**
+	 * 是否是过期允许时间范围内
+	 *
+	 * @param expireDate 过期时间
+	 * @return
+	 */
+	private boolean isAllowExpireTime(Date expireDate) {
+		return System.currentTimeMillis() - expireDate.getTime() <= allowExpireTime * 1000;
+	}
+
+	/**
+	 * 生成token的过期时间
+	 */
+	private Date generateExpireDate() {
+		return new Date(System.currentTimeMillis() + expireTime * 1000);
 	}
 }

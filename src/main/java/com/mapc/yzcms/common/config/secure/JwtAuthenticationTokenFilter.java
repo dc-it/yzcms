@@ -43,15 +43,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 			log.info("checking username:{}", account);
 			if (account != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 				if (jwtTokenUtil.validateToken(authToken)) {
-					UserDetails userDetails = this.userDetailsService.loadUserByUsername(account);
-					UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-					authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-					log.info("authenticated user:{}", account);
-					SecurityContextHolder.getContext().setAuthentication(authentication);
-				}
-				//允许过期时间内刷新token
-				else if (jwtTokenUtil.canRefresh(authToken)) {
-					authToken = jwtTokenUtil.refreshToken(authToken);
+					authToken = jwtTokenUtil.refreshTokenIfCanRefresh(authToken);
 					response.setHeader(this.tokenHeader, this.tokenHead + " " + authToken);
 
 					UserDetails userDetails = this.userDetailsService.loadUserByUsername(account);
@@ -60,6 +52,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 					log.info("authenticated user:{}", account);
 					SecurityContextHolder.getContext().setAuthentication(authentication);
 				}
+
 			}
 		}
 		chain.doFilter(request, response);
