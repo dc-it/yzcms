@@ -19,6 +19,8 @@ import java.io.IOException;
 
 /**
  * JWT登录授权过滤器
+ *
+ * @author duchao
  */
 @Slf4j
 public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {

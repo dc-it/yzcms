@@ -121,7 +121,7 @@ public class JwtTokenUtil {
 		if (isAllowExpireTime(expireDate)) {
 			claims.put(CLAIM_KEY_CREATED, new Date());
 			token = generateToken(claims);
-			log.info("账户{}登录过期，token刷新为：{}",claims.getSubject(),token);
+			log.info("账户{}登录过期，token刷新为：{}", claims.getSubject(), token);
 		}
 		return token;
 	}
