@@ -40,19 +40,17 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 		if (authHeader != null && authHeader.startsWith(this.tokenHead)) {
 			String authToken = authHeader.substring(this.tokenHead.length() + 1);
 			String account = jwtTokenUtil.getAccountFromToken(authToken);
-			log.info("checking username:{}", account);
-			if (account != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-				if (jwtTokenUtil.validateToken(authToken)) {
-					authToken = jwtTokenUtil.refreshTokenIfCanRefresh(authToken);
-					response.setHeader(this.tokenHeader, this.tokenHead + " " + authToken);
+			log.info("checking account:{}", account);
+			//SecurityContextHolder默认安全上下文持有者内部有一安全上下文线程本地，也就是说安全上下文是一个请求的生命周期
+			if (account != null && SecurityContextHolder.getContext().getAuthentication() == null && jwtTokenUtil.validateToken(authToken)) {
+				authToken = jwtTokenUtil.refreshTokenIfCanRefresh(authToken);
+				response.setHeader(this.tokenHeader, this.tokenHead + " " + authToken);
 
-					UserDetails userDetails = this.userDetailsService.loadUserByUsername(account);
-					UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-					authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-					log.info("authenticated user:{}", account);
-					SecurityContextHolder.getContext().setAuthentication(authentication);
-				}
-
+				UserDetails userDetails = this.userDetailsService.loadUserByUsername(account);
+				UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+				authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+				log.info("authenticated account:{}", account);
+				SecurityContextHolder.getContext().setAuthentication(authentication);
 			}
 		}
 		chain.doFilter(request, response);

@@ -9,9 +9,11 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 
@@ -26,6 +28,10 @@ import javax.validation.constraints.NotBlank;
 @RequestMapping("/account")
 public class AccountController {
 
+	@Value("${jwt.tokenHeader}")
+	private String tokenHeader;
+	@Value("${jwt.tokenHead}")
+	private String tokenHead;
 	private final IAccountService accountService;
 
 	@Autowired
@@ -35,9 +41,10 @@ public class AccountController {
 
 	@ApiOperation("登录")
 	@PostMapping("/login")
-	public Result<Object> login(@Validated @RequestBody SysUserLoginDto sysUserLoginDto) {
+	public Result<String> login(@Validated @RequestBody SysUserLoginDto sysUserLoginDto,HttpServletResponse response) {
 		String token = accountService.login(sysUserLoginDto);
-		return Result.success(token);
+		response.setHeader(this.tokenHeader, this.tokenHead + " " + token);
+		return Result.success();
 	}
 
 	@ApiOperation("注册")
