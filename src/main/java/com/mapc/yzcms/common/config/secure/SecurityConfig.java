@@ -1,6 +1,5 @@
 package com.mapc.yzcms.common.config.secure;
 
-import cn.hutool.core.collection.CollectionUtil;
 import com.mapc.yzcms.dto.SysUserDetails;
 import com.mapc.yzcms.entity.SysPermission;
 import com.mapc.yzcms.entity.SysUser;
@@ -11,9 +10,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.ObjectPostProcessor;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -21,6 +22,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import java.util.List;
@@ -37,16 +39,25 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private final ISysPermissionService sysPermissionService;
 	private final RestfulAccessDeniedHandler restfulAccessDeniedHandler;
 	private final RestAuthenticationEntryPoint restAuthenticationEntryPoint;
+	private final UrlAccessDecisionManager urlAccessDecisionManager;
+	private final UrlFilterInvocationSecurityMetadataSource urlFilterInvocationSecurityMetadataSource;
+	private final JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
 
 	@Autowired
 	public SecurityConfig(ISysUserService sysUserService,
 	                      ISysPermissionService sysPermissionService,
 	                      RestfulAccessDeniedHandler restfulAccessDeniedHandler,
-	                      RestAuthenticationEntryPoint restAuthenticationEntryPoint) {
+	                      RestAuthenticationEntryPoint restAuthenticationEntryPoint,
+	                      JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter,
+	                      UrlAccessDecisionManager urlAccessDecisionManager,
+	                      UrlFilterInvocationSecurityMetadataSource urlFilterInvocationSecurityMetadataSource) {
 		this.sysUserService = sysUserService;
 		this.sysPermissionService = sysPermissionService;
 		this.restfulAccessDeniedHandler = restfulAccessDeniedHandler;
 		this.restAuthenticationEntryPoint = restAuthenticationEntryPoint;
+		this.jwtAuthenticationTokenFilter = jwtAuthenticationTokenFilter;
+		this.urlAccessDecisionManager = urlAccessDecisionManager;
+		this.urlFilterInvocationSecurityMetadataSource = urlFilterInvocationSecurityMetadataSource;
 	}
 
 	@Override
@@ -57,29 +68,27 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 				.and()
 				.authorizeRequests()
-				.antMatchers(HttpMethod.GET, // 允许对于网站静态资源的无授权访问
-						"/",
-						"/*.html",
-						"/favicon.ico",
-						"/**/*.html",
-						"/**/*.css",
-						"/**/*.js",
-						"/swagger-resources/**",
-						"/v2/api-docs/**"
-				)
+				.antMatchers("/account/**")
 				.permitAll()
-				.antMatchers("/account/**")// 对登录注册要允许匿名访问
-				.permitAll()
-				.antMatchers(HttpMethod.OPTIONS)//跨域请求会先进行一次options请求
+				//跨域请求会先进行一次options请求
+				.antMatchers(HttpMethod.OPTIONS)
 				.permitAll()
 				//.antMatchers("/**")//测试时全部运行访问
 				//.permitAll()
 				.anyRequest()// 除上面外的所有请求全部需要鉴权认证
-				.authenticated();
+				.authenticated()
+				.withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
+					@Override
+					public <O extends FilterSecurityInterceptor> O postProcess(O fsi) {
+						fsi.setSecurityMetadataSource(urlFilterInvocationSecurityMetadataSource);
+						fsi.setAccessDecisionManager(urlAccessDecisionManager);
+						return fsi;
+					}
+				});
 		// 禁用缓存
 		httpSecurity.headers().cacheControl();
 		// 添加JWT filter
-		httpSecurity.addFilterBefore(jwtAuthenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+		httpSecurity.addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
 		//添加自定义未授权和未登录结果返回
 		httpSecurity.exceptionHandling()
 				.accessDeniedHandler(restfulAccessDeniedHandler)
@@ -90,6 +99,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(userDetailsService())
 				.passwordEncoder(new BCryptPasswordEncoder());
+	}
+
+	@Override
+	public void configure(WebSecurity web) throws Exception {
+		//解决静态资源被拦截的问题
+		web.ignoring().antMatchers(HttpMethod.GET,
+				"/",
+				"/*.html",
+				"/favicon.ico",
+				"/**/*.html",
+				"/**/*.css",
+				"/**/*.js",
+				"/swagger-resources/**",
+				"/v2/api-docs/**");
 	}
 
 	@Bean
@@ -110,11 +133,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			}
 			throw new UsernameNotFoundException("账户不存在");
 		};
-	}
-
-	@Bean
-	public JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter() {
-		return new JwtAuthenticationTokenFilter();
 	}
 
 	@Bean

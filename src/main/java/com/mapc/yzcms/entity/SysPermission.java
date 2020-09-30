@@ -40,9 +40,14 @@ public class SysPermission extends BaseEntity {
 	private String name;
 
 	/**
-	 * 权限值
+	 * api映射路径
 	 */
-	private String value;
+	private String url;
+
+	/**
+	 * api请求方法
+	 */
+	private String method;
 
 	/**
 	 * 图标
@@ -57,7 +62,7 @@ public class SysPermission extends BaseEntity {
 	/**
 	 * 前端资源路径
 	 */
-	private String uri;
+	private String path;
 
 	/**
 	 * 启用状态；0->禁用；1->启用

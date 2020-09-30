@@ -1,10 +1,10 @@
 package com.mapc.yzcms.dto;
 
 import cn.hutool.core.collection.CollectionUtil;
+import com.mapc.yzcms.common.config.secure.UrlGrantedAuthority;
 import com.mapc.yzcms.entity.SysPermission;
 import com.mapc.yzcms.entity.SysUser;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
@@ -29,10 +29,16 @@ public class SysUserDetails implements UserDetails {
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		//返回当前用户的权限
-		return CollectionUtil.isNotEmpty(permissionList) ? permissionList.stream()
-				.filter(permission -> permission.getValue() != null)
-				.map(permission -> new SimpleGrantedAuthority(permission.getValue()))
-				.collect(Collectors.toList()) : null;
+//		return CollectionUtil.isNotEmpty(permissionList) ? permissionList.stream()
+//				.filter(permission -> permission.getUrl() != null)
+//				.map(permission -> new SimpleGrantedAuthority(permission.getUrl()))
+//				.collect(Collectors.toList()) : null;
+		if (CollectionUtil.isNotEmpty(permissionList)) {
+			return permissionList.stream().filter(sysPermission -> sysPermission.getUrl() != null)
+					.map(sysPermission -> new UrlGrantedAuthority(sysPermission.getUrl(), sysPermission.getMethod()))
+					.collect(Collectors.toList());
+		}
+		return null;
 	}
 
 	@Override
