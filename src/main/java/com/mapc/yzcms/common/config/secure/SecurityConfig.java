@@ -1,5 +1,6 @@
 package com.mapc.yzcms.common.config.secure;
 
+import cn.hutool.core.collection.CollectionUtil;
 import com.mapc.yzcms.dto.SysUserDetails;
 import com.mapc.yzcms.entity.SysPermission;
 import com.mapc.yzcms.entity.SysUser;

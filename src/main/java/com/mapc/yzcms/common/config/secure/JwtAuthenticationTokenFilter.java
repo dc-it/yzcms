@@ -2,8 +2,6 @@ package com.mapc.yzcms.common.config.secure;
 
 import com.mapc.yzcms.common.util.JwtTokenUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -21,11 +19,10 @@ import java.io.IOException;
 
 /**
  * JWT登录授权过滤器
- * Created by macro on 2018/4/26.
  */
 @Slf4j
 public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
-	private static final Logger LOGGER = LoggerFactory.getLogger(JwtAuthenticationTokenFilter.class);
+
 	@Autowired
 	private UserDetailsService userDetailsService;
 	@Autowired
@@ -41,18 +38,27 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 	                                FilterChain chain) throws ServletException, IOException {
 		String authHeader = request.getHeader(this.tokenHeader);
 		if (authHeader != null && authHeader.startsWith(this.tokenHead)) {
-			String authToken = authHeader.substring(this.tokenHead.length()+1);
+			String authToken = authHeader.substring(this.tokenHead.length() + 1);
 			String account = jwtTokenUtil.getAccountFromToken(authToken);
-			LOGGER.info("checking username:{}", account);
+			log.info("checking username:{}", account);
 			if (account != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-				UserDetails userDetails = this.userDetailsService.loadUserByUsername(account);
-				if (jwtTokenUtil.validateToken(authToken, userDetails.getUsername())) {
+				if (jwtTokenUtil.validateToken(authToken)) {
+					UserDetails userDetails = this.userDetailsService.loadUserByUsername(account);
 					UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
 					authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-					LOGGER.info("authenticated user:{}", account);
+					log.info("authenticated user:{}", account);
 					SecurityContextHolder.getContext().setAuthentication(authentication);
-				}else{
-					log.info("token失效");
+				}
+				//允许过期时间内刷新token
+				else if (jwtTokenUtil.canRefresh(authToken)) {
+					authToken = jwtTokenUtil.refreshToken(authToken);
+					response.setHeader(this.tokenHeader, this.tokenHead + " " + authToken);
+
+					UserDetails userDetails = this.userDetailsService.loadUserByUsername(account);
+					UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+					authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+					log.info("authenticated user:{}", account);
+					SecurityContextHolder.getContext().setAuthentication(authentication);
 				}
 			}
 		}

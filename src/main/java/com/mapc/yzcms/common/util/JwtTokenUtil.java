@@ -1,6 +1,7 @@
 package com.mapc.yzcms.common.util;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.extern.slf4j.Slf4j;
@@ -50,22 +51,6 @@ public class JwtTokenUtil {
 	}
 
 	/**
-	 * 从token中获取JWT中的负载
-	 */
-	private Claims getClaimsFromToken(String token) {
-		Claims claims = null;
-		try {
-			claims = Jwts.parser()
-					.setSigningKey(secret)
-					.parseClaimsJws(token)
-					.getBody();
-		} catch (Exception e) {
-			log.error("JWT格式验证失败:{}", token);
-		}
-		return claims;
-	}
-
-	/**
 	 * 生成token的过期时间
 	 */
 	private Date generateExpirationDate() {
@@ -87,22 +72,28 @@ public class JwtTokenUtil {
 	}
 
 	/**
-	 * 验证token是否还有效
-	 *
-	 * @param token   客户端传入的token
-	 * @param account 从数据库中查询出来的用户信息
+	 * 从token中获取JWT中的负载
 	 */
-	public boolean validateToken(String token, String account) {
-		String username = getAccountFromToken(token);
-		return username.equals(account) && !isTokenExpired(token);
+	private Claims getClaimsFromToken(String token) {
+		try {
+			return Jwts.parser()
+					.setSigningKey(secret)
+					.parseClaimsJws(token)
+					.getBody();
+		} catch (ExpiredJwtException e) {
+			log.error("JWT-token过期:{}", token);
+			return e.getClaims();
+		}
 	}
 
 	/**
-	 * 判断token是否已经失效
+	 * 验证token是否还有效
+	 *
+	 * @param token   客户端传入的token
 	 */
-	private boolean isTokenExpired(String token) {
+	public boolean validateToken(String token) {
 		Date expiredDate = getExpiredDateFromToken(token);
-		return expiredDate.before(new Date());
+		return new Date().before(expiredDate);
 	}
 
 	/**
@@ -127,7 +118,8 @@ public class JwtTokenUtil {
 	 * 判断token是否可以被刷新
 	 */
 	public boolean canRefresh(String token) {
-		return !isTokenExpired(token);
+		Date expiredDate = getExpiredDateFromToken(token);
+		return !new Date().before(expiredDate) && System.currentTimeMillis()-expiredDate.getTime()<=allowExpireTime * 1000;
 	}
 
 	/**
