@@ -15,12 +15,15 @@
 
 - 可存储于项目内classpath:templates下，也可以存储进（远程）单独的minio文件服务器
 
-#### JWT令牌续期
+### JWT令牌续期
 
 - jwt生成的token，过期后解析会报过期异常ExpiredJwtException，可以从过期异常中获取存储用户相关信息的负载payload
 - 续期实现原理：      
 设置一个过期后的允许过期时间段。在token过期时间内，从过期异常中获取负载payload，修改创建时间为当前时间，然后设置过期时间，生成新的token返回给前端(具体实现看JwtTokenUtil.java)     
 
+### Spring Security
+
+- 安全上下文分为三种：全局、线程本地、可继承线程本地。默认是线程本地的，也就是说默认安全上线文的生命周期是和一次请求相关联的。
 
 ---
 
