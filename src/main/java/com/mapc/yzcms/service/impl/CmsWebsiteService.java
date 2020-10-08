@@ -123,7 +123,7 @@ public class CmsWebsiteService extends BaseService<CmsWebsite, Integer> implemen
 	 * @return
 	 */
 	@Override
-	public ListOrPage getWebsiteListOrPage(CmsWebsiteDto cmsWebsiteDto) {
+	public ListOrPage getCmsWebsiteListOrPage(CmsWebsiteDto cmsWebsiteDto) {
 		CmsWebsite cmsWebsite = new CmsWebsite();
 		BeanUtils.copyProperties(cmsWebsiteDto, cmsWebsite);
 		Pageable pageable = cmsWebsiteDto.getPageNumber() != null ? PageRequest.of(cmsWebsiteDto.getPageNumber(), cmsWebsiteDto.getPageSize()) : null;

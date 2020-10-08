@@ -3,12 +3,20 @@ package com.mapc.yzcms.service.impl;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
 import cn.hutool.core.collection.CollectionUtil;
+import cn.hutool.core.util.StrUtil;
+import com.mapc.yzcms.common.api.ListOrPage;
 import com.mapc.yzcms.common.util.AssertUtil;
 import com.mapc.yzcms.common.util.DataUtil;
+import com.mapc.yzcms.common.util.ValidateUtil;
 import com.mapc.yzcms.dao.SysUserRepository;
+import com.mapc.yzcms.dto.SysUserDto;
+import com.mapc.yzcms.entity.CmsWebsite;
 import com.mapc.yzcms.entity.SysUser;
 import com.mapc.yzcms.service.ISysUserService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -69,5 +77,32 @@ public class SysUserService extends BaseService<SysUser, Integer> implements ISy
 			setIgnoreNullValue(true);
 		}});
 		this.update(dbSysUser.getId(),dbSysUser);
+	}
+
+	/**
+	 * 获取用户列表/分页
+	 *
+	 * @param sysUserDto 查询参数
+	 * @return
+	 */
+	@Override
+	public ListOrPage getSysUserListOrPage(SysUserDto sysUserDto) {
+
+		SysUser sysUser = new SysUser();
+		BeanUtils.copyProperties(sysUserDto, sysUser);
+
+		String account = sysUserDto.getAccount();
+		if(StrUtil.isNotBlank(account)){
+			if(ValidateUtil.isPhone(account)){
+				sysUser.setPhone(account);
+			}else if(ValidateUtil.isEmail(account)){
+				sysUser.setEmail(account);
+			}else{
+				sysUser.setUsername(account);
+			}
+		}
+
+		Pageable pageable = sysUserDto.getPageNumber() != null ? PageRequest.of(sysUserDto.getPageNumber(), sysUserDto.getPageSize()) : null;
+		return this.getListOrPage(sysUser, pageable);
 	}
 }

@@ -5,6 +5,7 @@ import com.mapc.yzcms.dao.SysPermissionRepository;
 import com.mapc.yzcms.dao.SysRolePermissionRelationRepository;
 import com.mapc.yzcms.dao.SysUserPermissionRelationRepository;
 import com.mapc.yzcms.dao.SysUserRoleRelationRepository;
+import com.mapc.yzcms.dto.SysPermissionDto;
 import com.mapc.yzcms.entity.SysPermission;
 import com.mapc.yzcms.entity.SysRolePermissionRelation;
 import com.mapc.yzcms.entity.SysUserPermissionRelation;
@@ -84,5 +85,15 @@ public class SysPermissionService extends BaseService<SysPermission, Integer> im
 		}
 
 		return sysPermissionList;
+	}
+
+	/**
+	 * 获取系统权限树
+	 *
+	 * @return
+	 */
+	@Override
+	public List<SysPermissionDto> getSysPermissionTree() {
+		return null;
 	}
 }

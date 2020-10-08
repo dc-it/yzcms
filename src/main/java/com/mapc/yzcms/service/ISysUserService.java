@@ -1,5 +1,7 @@
 package com.mapc.yzcms.service;
 
+import com.mapc.yzcms.common.api.ListOrPage;
+import com.mapc.yzcms.dto.SysUserDto;
 import com.mapc.yzcms.entity.SysUser;
 
 /**
@@ -32,4 +34,12 @@ public interface ISysUserService extends IBaseService<SysUser, Integer> {
      * @param sysUser 系统用户
      */
     void updateByAccount(String account, SysUser sysUser);
+
+    /**
+     * 获取用户列表/分页
+     *
+     * @param sysUserDto 查询参数
+     * @return
+     */
+    ListOrPage getSysUserListOrPage(SysUserDto sysUserDto);
 }

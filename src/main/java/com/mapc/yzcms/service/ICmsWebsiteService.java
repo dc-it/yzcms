@@ -44,5 +44,5 @@ public interface ICmsWebsiteService extends IBaseService<CmsWebsite, Integer> {
 	 * @param cmsWebsiteDto 查询参数
 	 * @return
 	 */
-	ListOrPage getWebsiteListOrPage(CmsWebsiteDto cmsWebsiteDto);
+	ListOrPage getCmsWebsiteListOrPage(CmsWebsiteDto cmsWebsiteDto);
 }

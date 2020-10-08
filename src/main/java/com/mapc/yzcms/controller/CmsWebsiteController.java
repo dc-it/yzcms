@@ -30,8 +30,8 @@ public class CmsWebsiteController {
 
 	@ApiOperation("获取站点列表/分页")
 	@GetMapping
-	public Result<ListOrPage> getCmsWebsiteList(CmsWebsiteDto cmsWebsiteDto) {
-		return Result.success(cmsWebsiteService.getWebsiteListOrPage(cmsWebsiteDto));
+	public Result<ListOrPage> getCmsWebsiteListOrPage(CmsWebsiteDto cmsWebsiteDto) {
+		return Result.success(cmsWebsiteService.getCmsWebsiteListOrPage(cmsWebsiteDto));
 	}
 
 	@ApiOperation("获取某个站点")

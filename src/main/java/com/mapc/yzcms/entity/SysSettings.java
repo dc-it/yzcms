@@ -1,5 +1,7 @@
 package com.mapc.yzcms.entity;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -7,11 +9,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 
-/**
- * 系统设置
- *
- * @author duchao
- */
+@ApiModel(value = "系统设置")
 @Entity
 @Table(name = "sys_settings")
 @Data
@@ -29,13 +27,9 @@ public class SysSettings extends BaseEntity{
 	@Column(name = "id", unique = true, nullable = false)
 	private Integer id;
 
-	/**
-	 * 系统附件存放地址
-	 */
+	@ApiModelProperty(name = "fileUrl", value = "系统附件存放地址")
 	private String fileUrl;
 
-	/**
-	 * 系统模板存放地址
-	 */
+	@ApiModelProperty(name = "templateUrl", value = "系统模板存放地址")
 	private String templateUrl;
 }
