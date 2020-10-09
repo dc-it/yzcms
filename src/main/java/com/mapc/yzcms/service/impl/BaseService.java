@@ -25,7 +25,6 @@ import java.util.Optional;
 /**
  * @author duchao
  */
-@Transactional(rollbackFor = Exception.class)
 public class BaseService<T, K> implements IBaseService<T, K> {
 
 	@PersistenceContext
@@ -49,9 +48,21 @@ public class BaseService<T, K> implements IBaseService<T, K> {
 	 *
 	 * @param entity 实例
 	 */
+	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public void add(T entity) {
 		jpaRepository.save(entity);
+	}
+
+	/**
+	 * 添加
+	 *
+	 * @param entityList 实例
+	 */
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public void batchAdd(List<T> entityList) {
+		jpaRepository.saveAll(entityList);
 	}
 
 	/**
@@ -59,6 +70,7 @@ public class BaseService<T, K> implements IBaseService<T, K> {
 	 *
 	 * @param entity 实例
 	 */
+	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public void update(K id, T entity) {
 		AssertUtil.notNull(id,"id不能为空");
@@ -78,6 +90,7 @@ public class BaseService<T, K> implements IBaseService<T, K> {
 	 *
 	 * @param id 主键
 	 */
+	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public void delete(K id) {
 		jpaRepository.deleteById(id);

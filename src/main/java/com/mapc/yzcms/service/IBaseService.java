@@ -19,6 +19,13 @@ public interface IBaseService<T, K> {
 	void add(T entity);
 
 	/**
+	 * 批量添加
+	 *
+	 * @param entityList 实例集合
+	 */
+	void batchAdd(List<T> entityList);
+
+	/**
 	 * 更新
 	 *
 	 * @param id     实例id
@@ -60,6 +67,7 @@ public interface IBaseService<T, K> {
 
 	/**
 	 * 获取列表/分页
+	 *
 	 * @param entity
 	 * @param pageable
 	 * @return

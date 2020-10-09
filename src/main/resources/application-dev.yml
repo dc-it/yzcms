@@ -28,13 +28,16 @@ spring:
   mvc:
     throw-exception-if-no-handler-found: true
     static-path-pattern: /**
+    hiddenmethod:
+      filter:
+        enabled: true
   resources:
     add-mappings: true
 
   redis:
     host: 182.92.202.68
     port: 8001
-    password:
+    password: ENC(NHzbt6ap/gB3AD/iQfrN7unabpKw2PLH+0pBrKqXVIPlNiyadtU3VD1r4Zs7uP7o)
     database: 0
     timeout: 30000
     lettuce:
