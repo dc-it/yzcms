@@ -13,5 +13,6 @@ public class YzcmsApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(YzcmsApplication.class, args);
+		System.out.println("已启动");
 	}
 }
